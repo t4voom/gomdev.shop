@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Criação de sites em Blumenau para negócios locais | gomdev</title>
+  <meta name="description" content="Sites bonitos, rápidos no celular e feitos para trazer clientes pelo WhatsApp. Para pet shops, lojas, restaurantes, clínicas e prestadores de serviço em Blumenau e região.">
+  <link rel="canonical" href="https://gomdev.shop/">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="gomdev">
+  <meta property="og:url" content="https://gomdev.shop/">
+  <meta property="og:title" content="gomdev — Seu negócio merece um site à altura">
+  <meta property="og:description" content="Criação de sites para negócios locais em Blumenau, SC. Design que vende, rápido no celular e pronto em poucos dias.">
+  <meta property="og:image" content="https://gomdev.shop/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="gomdev — Seu negócio merece um site à altura.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="gomdev — Seu negócio merece um site à altura">
+  <meta name="twitter:description" content="Criação de sites para negócios locais em Blumenau, SC. Design que vende, rápido no celular e pronto em poucos dias.">
+  <meta name="twitter:image" content="https://gomdev.shop/assets/og-image.jpg">
+
+  <!-- Ícones -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Liga as animações de revelação só quando o JavaScript está disponível -->
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="js/config.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <script type="application/ld+json" id="jsonld">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://gomdev.shop/#negocio",
+    "name": "gomdev",
+    "description": "Criação de sites para negócios locais: pet shops, lojas, restaurantes, clínicas e prestadores de serviço.",
+    "url": "https://gomdev.shop/",
+    "logo": "https://gomdev.shop/assets/logo.svg",
+    "image": "https://gomdev.shop/assets/og-image.jpg",
+    "founder": { "@type": "Person", "name": "Gustavo" },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Blumenau",
+      "addressRegion": "SC",
+      "addressCountry": "BR"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Blumenau" },
+      { "@type": "State", "name": "Santa Catarina" }
+    ],
+    "knowsLanguage": "pt-BR",
+    "serviceType": "Criação de sites"
+  }
+  </script>
+</head>
+<body>
+  <!-- Ícones reutilizados em toda a página (traço fino, 24×24) -->
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3.25a8.75 8.75 0 0 0-7.6 13.08L3.25 20.75l4.52-1.12A8.75 8.75 0 1 0 12 3.25Z"/><path d="M9.2 8.1c.25-.5.55-.5.8-.5h.55c.2 0 .45.05.6.45l.72 1.75c.08.2.04.45-.1.62l-.55.66a.4.4 0 0 0-.05.47 7 7 0 0 0 2.7 2.7c.16.1.36.07.48-.06l.66-.55a.6.6 0 0 1 .62-.1l1.75.72c.4.15.45.4.45.6v.55c0 .25 0 .55-.5.8-.6.3-1.5.55-2.45.3a7.9 7.9 0 0 1-5.4-5.4c-.25-.95 0-1.85.3-2.45Z"/></symbol>
+      <symbol id="i-design" viewBox="0 0 24 24"><path d="M4 20l1.2-4.8L15.6 4.8a2.1 2.1 0 0 1 3 0l.6.6a2.1 2.1 0 0 1 0 3L8.8 18.8Z"/><path d="M13.8 6.6l3.6 3.6"/><path d="M4 20h16"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.25" y="2.75" width="11.5" height="18.5" rx="3"/><path d="M10.5 18h3"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><path d="M12 7.5V12l3 2"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6.25A2.5 2.5 0 0 1 6.5 3.75h11A2.5 2.5 0 0 1 20 6.25v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5v-3.5h0A1.5 1.5 0 0 1 4 15.25Z"/><path d="M8 8.75h8M8 12h5"/></symbol>
+      <symbol id="i-draft" viewBox="0 0 24 24"><path d="M14 3.25H7.5a2 2 0 0 0-2 2v13.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7.75Z"/><path d="M14 3.25v4.5h4.5M9 12.5h6M9 16h4"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7.5h9M18 7.5h2M4 16.5h3M11 16.5h9"/><circle cx="15.5" cy="7.5" r="2.25"/><circle cx="8.75" cy="16.5" r="2.25"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><path d="M3.25 12h17.5M12 3.25c2.4 2.6 3.6 5.5 3.6 8.75S14.4 18.15 12 20.75C9.6 18.15 8.4 15.25 8.4 12S9.6 5.85 12 3.25Z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-revisions" viewBox="0 0 24 24"><path d="M19.5 10.5A7.75 7.75 0 0 0 5.6 7.4L4.25 9"/><path d="M4.25 4.75V9H8.5"/><path d="M4.5 13.5a7.75 7.75 0 0 0 13.9 3.1l1.35-1.6"/><path d="M19.75 19.25V15H15.5"/></symbol>
+      <symbol id="i-speed" viewBox="0 0 24 24"><path d="M4.6 17.75a8.75 8.75 0 1 1 14.8 0"/><path d="m12 13.5 4-4.5"/><circle cx="12" cy="13.5" r="1.25"/></symbol>
+      <symbol id="i-support" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.75"/><circle cx="12" cy="12" r="3.5"/><path d="m5.8 5.8 3.7 3.7M14.5 14.5l3.7 3.7M18.2 5.8l-3.7 3.7M9.5 14.5l-3.7 3.7"/></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3.75" y="3.75" width="16.5" height="16.5" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.1" cy="6.9" r=".4"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 20.75s-6.25-5.4-6.25-10.5a6.25 6.25 0 0 1 12.5 0c0 5.1-6.25 10.5-6.25 10.5Z"/><circle cx="12" cy="10.25" r="2.25"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9.5" rx="2.25"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ===================== Navegação ===================== -->
+  <header class="nav" id="nav" data-theme="dark">
+    <nav class="nav__bar container" aria-label="Principal">
+      <a class="nav__logo" href="#inicio" aria-label="gomdev, voltar ao início">
+        <svg class="logo" viewBox="0 0 131 34" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8.5" cy="17" r="7"/><path d="M15.5 10V25a7 7 0 0 1-13.06 3.5"/>
+            <circle cx="29" cy="17" r="7"/>
+            <path d="M42.5 24V14.5a4.5 4.5 0 0 1 9 0V24M51.5 14.5a4.5 4.5 0 0 1 9 0V24"/>
+            <circle cx="74" cy="17" r="7"/><path d="M81 2V24"/>
+            <path d="M87.5 17h14a7 7 0 1 0-2.05 4.95"/>
+            <path d="M108 10l6.5 14L121 10"/>
+          </g>
+          <circle class="logo__dot" cx="128" cy="23" r="2.5"/>
+        </svg>
+      </a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__links">
+          <li style="--i:0"><a href="#projetos">Projetos</a></li>
+          <li style="--i:1"><a href="#como-funciona">Como funciona</a></li>
+          <li style="--i:2"><a href="#planos">Planos</a></li>
+          <li style="--i:3"><a href="#garantias">Garantias</a></li>
+          <li style="--i:4"><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+        <div class="nav__menu-footer" style="--i:5">
+          <a class="btn btn--primary btn--lg" href="#contato" data-wa>
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Fale no WhatsApp
+          </a>
+          <p class="nav__menu-note" data-cfg="whatsapp.responseTime">Resposta em até 24h em dias úteis.</p>
+        </div>
+      </div>
+
+      <div class="nav__actions">
+        <a class="btn btn--primary btn--sm" href="#contato" data-wa>Fale comigo</a>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu">
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo" tabindex="-1">
+
+    <!-- ===================== Hero ===================== -->
+    <section class="hero section" id="inicio" data-theme="dark" aria-labelledby="hero-title">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="glow hero__glow"></div>
+        <div class="hero__grid"></div>
+      </div>
+
+      <div class="container hero__content">
+        <p class="eyebrow hero__anim" style="--d:0">Criação de sites para negócios locais</p>
+        <h1 class="hero__title hero__anim" id="hero-title" style="--d:1">Seu negócio merece um site <span class="text-gradient">à&nbsp;altura.</span></h1>
+        <p class="lead hero__lead hero__anim" style="--d:2">Bonito, rápido no celular e feito para trazer clientes pelo WhatsApp.</p>
+        <div class="cta-row hero__anim" style="--d:3">
+          <a class="btn btn--primary btn--lg" href="#contato" data-wa>
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Fale no WhatsApp
+          </a>
+          <a class="link-arrow link-arrow--lg" href="#projetos">Ver projetos</a>
+        </div>
+      </div>
+
+      <div class="hero__devices hero__anim" style="--d:4">
+        <div class="hero__browser float">
+          <div class="browser">
+            <div class="browser__body">
+              <div class="browser__bar" aria-hidden="true">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>brasanorte.com.br</span>
+              </div>
+              <img class="browser__screen" src="assets/mockups/brasa-desktop.svg" width="1280" height="800" fetchpriority="high" decoding="async" alt="Exemplo de site para restaurante aberto no computador, com cardápio e botão de reserva.">
+            </div>
+          </div>
+        </div>
+        <div class="hero__phone float float--late">
+          <div class="phone">
+            <div class="phone__body">
+              <div class="phone__screen">
+                <img src="assets/mockups/brasa-mobile.svg" width="390" height="844" decoding="async" alt="O mesmo site de restaurante no celular.">
+                <span class="phone__island" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== O que você recebe ===================== -->
+    <section class="section" id="beneficios" data-theme="light" aria-labelledby="beneficios-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">O que você recebe</p>
+          <h2 class="section__title" id="beneficios-title">Feito para vender. Não só para enfeitar.</h2>
+          <p class="lead">Um bom site trabalha por você o dia inteiro: apresenta o seu negócio, tira dúvidas e leva o cliente direto para o seu WhatsApp.</p>
+        </header>
+
+        <ul class="values" data-reveal-group>
+          <li class="reveal">
+            <article class="value card">
+              <span class="value__icon" aria-hidden="true"><svg class="icon"><use href="#i-design"/></svg></span>
+              <h3 class="card__title">Design que vende</h3>
+              <p class="card__text">Cada tela é pensada para o cliente entender o que você faz em segundos e chamar você no WhatsApp.</p>
+              <div class="value__visual" aria-hidden="true">
+                <div class="notif notif--back"></div>
+                <div class="notif">
+                  <span class="notif__icon"><svg class="icon"><use href="#i-whatsapp"/></svg></span>
+                  <span class="notif__body">
+                    <span class="notif__title">Nova mensagem <span class="notif__time">agora</span></span>
+                    <span class="notif__text">Oi! Vi seu site e quero um orçamento.</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li class="reveal">
+            <article class="value card">
+              <span class="value__icon" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
+              <h3 class="card__title">Rápido no celular</h3>
+              <p class="card__text">A maioria dos seus clientes vai abrir pelo celular. Seu site carrega em segundos, até no 4G.</p>
+              <div class="value__visual" aria-hidden="true">
+                <div class="gauge">
+                  <svg class="gauge__ring" viewBox="0 0 120 120">
+                    <circle class="gauge__track" cx="60" cy="60" r="52"/>
+                    <circle class="gauge__value" cx="60" cy="60" r="52" pathLength="100"/>
+                  </svg>
+                  <span class="gauge__number">98</span>
+                </div>
+                <span class="gauge__label">Nota de velocidade<br>no celular</span>
+              </div>
+            </article>
+          </li>
+          <li class="reveal">
+            <article class="value card">
+              <span class="value__icon" aria-hidden="true"><svg class="icon"><use href="#i-clock"/></svg></span>
+              <h3 class="card__title">Pronto em poucos dias</h3>
+              <p class="card__text">Do primeiro papo ao site no ar em até <span data-cfg="deliveryDays">7</span> dias úteis. Sem enrolação e sem sumiço.</p>
+              <div class="value__visual" aria-hidden="true">
+                <ol class="days">
+                  <li class="days__item is-done"><span>Papo</span></li>
+                  <li class="days__item is-done"><span>Rascunho</span></li>
+                  <li class="days__item is-done"><span>Ajustes</span></li>
+                  <li class="days__item is-live"><span>No ar</span></li>
+                </ol>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Como funciona ===================== -->
+    <section class="section section--gray" id="como-funciona" data-theme="light" aria-labelledby="como-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Como funciona</p>
+          <h2 class="section__title" id="como-title">Do primeiro oi ao site no ar.</h2>
+          <p class="lead">Quatro passos simples. Você acompanha tudo pelo WhatsApp, sem reunião chata e sem termos técnicos.</p>
+        </header>
+
+        <ol class="steps" data-reveal-group>
+          <li class="step reveal">
+            <span class="step__marker" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>
+            <div class="step__card card">
+              <p class="step__tag"><span class="step__num">Passo 1</span> · Dia 1</p>
+              <h3 class="card__title">Conversa</h3>
+              <p class="card__text">Você me conta sobre o seu negócio, seus clientes e o que precisa. Pode ser por texto ou áudio.</p>
+            </div>
+          </li>
+          <li class="step reveal">
+            <span class="step__marker" aria-hidden="true"><svg class="icon"><use href="#i-draft"/></svg></span>
+            <div class="step__card card">
+              <p class="step__tag"><span class="step__num">Passo 2</span> · Até 2 dias</p>
+              <h3 class="card__title">Proposta e rascunho</h3>
+              <p class="card__text">Você recebe uma proposta com valor fechado e o primeiro rascunho do visual do seu site.</p>
+            </div>
+          </li>
+          <li class="step reveal">
+            <span class="step__marker" aria-hidden="true"><svg class="icon"><use href="#i-sliders"/></svg></span>
+            <div class="step__card card">
+              <p class="step__tag"><span class="step__num">Passo 3</span> · No seu ritmo</p>
+              <h3 class="card__title">Ajustes</h3>
+              <p class="card__text">Você revisa no celular, pede mudanças e eu ajusto até ficar do jeito que você imaginou.</p>
+            </div>
+          </li>
+          <li class="step reveal">
+            <span class="step__marker" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span>
+            <div class="step__card card">
+              <p class="step__tag"><span class="step__num">Passo 4</span> · No ar</p>
+              <h3 class="card__title">Publicação e suporte</h3>
+              <p class="card__text">Coloco o site no ar com o seu domínio e continuo por perto para o que você precisar.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== Exemplos de projeto ===================== -->
+    <section class="section" id="projetos" data-theme="dark" aria-labelledby="projetos-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Exemplos de projeto</p>
+          <h2 class="section__title" id="projetos-title">Um visual para cada tipo de negócio.</h2>
+          <p class="lead">Projetos conceituais que mostram o que dá para fazer pelo seu. Cada site é desenhado do zero, com a cara da sua marca.</p>
+        </header>
+
+        <ul class="works" data-reveal-group>
+          <li class="reveal">
+            <article class="work" style="--tint: 255 107 53">
+              <div class="work__text">
+                <p class="work__cat">Pet shop</p>
+                <h3 class="work__name">Aurora Pet</h3>
+                <p class="work__desc">Banho e tosa agendados em dois toques, direto no WhatsApp.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Aurora Pet">Quero um assim<span class="visually-hidden">: site parecido com o Aurora Pet</span></a>
+              </div>
+              <div class="work__media work__media--browser">
+                <div class="browser">
+                  <div class="browser__body">
+                    <div class="browser__bar" aria-hidden="true">
+                      <span class="browser__dots"><i></i><i></i><i></i></span>
+                      <span class="browser__url"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>aurorapet.com.br</span>
+                    </div>
+                    <img class="browser__screen" src="assets/mockups/aurora-desktop.svg" width="1280" height="800" loading="lazy" decoding="async" alt="Página inicial do pet shop Aurora Pet, com ilustração de cachorro e serviços de banho e tosa.">
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="reveal">
+            <article class="work" style="--tint: 20 184 166">
+              <div class="work__text">
+                <p class="work__cat">Clínica</p>
+                <h3 class="work__name">Lumen Odonto</h3>
+                <p class="work__desc">Avaliação marcada pelo celular, com dia e horário na hora.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Lumen Odonto">Quero um assim<span class="visually-hidden">: site parecido com o Lumen Odonto</span></a>
+              </div>
+              <div class="work__media work__media--phone">
+                <div class="phone">
+                  <div class="phone__body">
+                    <div class="phone__screen">
+                      <img src="assets/mockups/lumen-mobile.svg" width="390" height="844" loading="lazy" decoding="async" alt="Site da clínica Lumen Odonto no celular, com agenda de horários.">
+                      <span class="phone__island" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="reveal">
+            <article class="work" style="--tint: 212 150 90">
+              <div class="work__text">
+                <p class="work__cat">Cafeteria</p>
+                <h3 class="work__name">Bruma Café</h3>
+                <p class="work__desc">Cardápio bonito que abre rápido, direto da mesa.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Bruma Café">Quero um assim<span class="visually-hidden">: site parecido com o Bruma Café</span></a>
+              </div>
+              <div class="work__media work__media--phone">
+                <div class="phone">
+                  <div class="phone__body">
+                    <div class="phone__screen">
+                      <img src="assets/mockups/bruma-mobile.svg" width="390" height="844" loading="lazy" decoding="async" alt="Site da cafeteria Bruma Café no celular, com foto de café e cardápio.">
+                      <span class="phone__island" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="reveal">
+            <article class="work" style="--tint: 125 138 106">
+              <div class="work__text">
+                <p class="work__cat">Loja</p>
+                <h3 class="work__name">Nórdica Casa</h3>
+                <p class="work__desc">Vitrine de produtos com pedido fácil pelo WhatsApp.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Nórdica Casa">Quero um assim<span class="visually-hidden">: site parecido com o Nórdica Casa</span></a>
+              </div>
+              <div class="work__media work__media--browser">
+                <div class="browser">
+                  <div class="browser__body">
+                    <div class="browser__bar" aria-hidden="true">
+                      <span class="browser__dots"><i></i><i></i><i></i></span>
+                      <span class="browser__url"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>nordicacasa.com.br</span>
+                    </div>
+                    <img class="browser__screen" src="assets/mockups/nordica-desktop.svg" width="1280" height="800" loading="lazy" decoding="async" alt="Loja virtual Nórdica Casa, com banner de coleção e produtos de decoração.">
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="reveal">
+            <article class="work" style="--tint: 255 106 61">
+              <div class="work__text">
+                <p class="work__cat">Restaurante</p>
+                <h3 class="work__name">Brasa Norte</h3>
+                <p class="work__desc">Cardápio, horários e reserva de mesa no mesmo lugar.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Brasa Norte">Quero um assim<span class="visually-hidden">: site parecido com o Brasa Norte</span></a>
+              </div>
+              <div class="work__media work__media--browser">
+                <div class="browser">
+                  <div class="browser__body">
+                    <div class="browser__bar" aria-hidden="true">
+                      <span class="browser__dots"><i></i><i></i><i></i></span>
+                      <span class="browser__url"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>brasanorte.com.br</span>
+                    </div>
+                    <img class="browser__screen" src="assets/mockups/brasa-desktop.svg" width="1280" height="800" loading="lazy" decoding="async" alt="Site do restaurante Brasa Norte, com prato em destaque e pratos da casa.">
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="reveal">
+            <article class="work" style="--tint: 255 194 51">
+              <div class="work__text">
+                <p class="work__cat">Prestador de serviço</p>
+                <h3 class="work__name">Volta Elétrica</h3>
+                <p class="work__desc">Pedido de orçamento em menos de um minuto.</p>
+                <a class="link-arrow" href="#contato" data-wa="example" data-project="Volta Elétrica">Quero um assim<span class="visually-hidden">: site parecido com o Volta Elétrica</span></a>
+              </div>
+              <div class="work__media work__media--phone">
+                <div class="phone">
+                  <div class="phone__body">
+                    <div class="phone__screen">
+                      <img src="assets/mockups/volta-mobile.svg" width="390" height="844" loading="lazy" decoding="async" alt="Site do eletricista Volta Elétrica no celular, com formulário de orçamento.">
+                      <span class="phone__island" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Planos ===================== -->
+    <section class="section" id="planos" data-theme="light" aria-labelledby="planos-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Planos</p>
+          <h2 class="section__title" id="planos-title">Preço claro. Sem surpresa no final.</h2>
+          <p class="lead">Escolha um ponto de partida. Depois da nossa conversa, você recebe uma proposta com valor fechado.</p>
+        </header>
+
+        <!-- Os cards são montados pelo main.js a partir de js/config.js -->
+        <div class="plans" data-render="plans" data-reveal-group></div>
+        <noscript><p class="plans__note">Ative o JavaScript do navegador para ver os planos e os preços.</p></noscript>
+        <p class="plans__note reveal" data-cfg="plansNote"></p>
+      </div>
+    </section>
+
+    <!-- ===================== Por que comigo ===================== -->
+    <section class="section" id="por-que-comigo" data-theme="dark" aria-labelledby="porque-title">
+      <div class="glow why__glow" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Por que comigo</p>
+          <h2 class="section__title" id="porque-title">Você fala direto com quem faz.</h2>
+          <p class="lead">Sem agência, sem intermediário, sem telefone sem fio. Eu sou o Gustavo: quem responde o seu WhatsApp é quem desenha e publica o seu site.</p>
+        </header>
+
+        <!-- Números montados pelo main.js a partir de js/config.js -->
+        <ul class="stats" data-render="stats" data-reveal-group></ul>
+      </div>
+    </section>
+
+    <!-- ===================== Garantias ===================== -->
+    <section class="section" id="garantias" data-theme="light" aria-labelledby="garantias-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Garantias</p>
+          <h2 class="section__title" id="garantias-title">O que eu prometo, sem letra miúda.</h2>
+          <p class="lead">Valem para todos os planos, do Essencial ao Completo.</p>
+        </header>
+
+        <ul class="guarantees" data-render="guarantees" data-reveal-group></ul>
+      </div>
+    </section>
+
+    <!-- ===================== Dúvidas ===================== -->
+    <section class="section section--gray" id="duvidas" data-theme="light" aria-labelledby="duvidas-title">
+      <div class="container container--narrow">
+        <header class="section__head reveal">
+          <p class="eyebrow">Dúvidas</p>
+          <h2 class="section__title" id="duvidas-title">Perguntas frequentes.</h2>
+          <p class="lead">Não encontrou a sua? <a class="inline-link" href="#contato" data-wa>Pergunte no WhatsApp</a>.</p>
+        </header>
+
+        <div class="faq reveal" data-render="faq"></div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA final ===================== -->
+    <section class="section cta" id="contato" data-theme="dark" aria-labelledby="contato-title">
+      <div class="glow cta__glow" aria-hidden="true"></div>
+      <div class="container cta__content reveal">
+        <h2 class="cta__title" id="contato-title">Vamos tirar seu negócio do <span class="text-gradient">papel digital?</span></h2>
+        <p class="lead">Me chama no WhatsApp. Em poucos minutos você já sabe quanto custa e quando fica pronto.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary btn--lg" href="#contato" data-wa>
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Fale no WhatsApp
+          </a>
+        </div>
+        <p class="cta__note" data-cfg="whatsapp.responseTime">Resposta em até 24h em dias úteis.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Rodapé ===================== -->
+  <footer class="footer section--gray" data-theme="light">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a class="footer__logo" href="#inicio" aria-label="gomdev, voltar ao início">
+          <svg class="logo" viewBox="0 0 131 34" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8.5" cy="17" r="7"/><path d="M15.5 10V25a7 7 0 0 1-13.06 3.5"/>
+              <circle cx="29" cy="17" r="7"/>
+              <path d="M42.5 24V14.5a4.5 4.5 0 0 1 9 0V24M51.5 14.5a4.5 4.5 0 0 1 9 0V24"/>
+              <circle cx="74" cy="17" r="7"/><path d="M81 2V24"/>
+              <path d="M87.5 17h14a7 7 0 1 0-2.05 4.95"/>
+              <path d="M108 10l6.5 14L121 10"/>
+            </g>
+            <circle class="logo__dot" cx="128" cy="23" r="2.5"/>
+          </svg>
+        </a>
+        <p class="footer__tagline">Sites para negócios locais, feitos à mão.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Rodapé">
+        <ul>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#garantias">Garantias</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+        <ul>
+          <li><a href="#contato" data-wa><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></li>
+          <li><a href="#contato" data-instagram><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg><span data-cfg="instagram.handle">Instagram</span></a></li>
+          <li><span class="footer__place"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Blumenau, SC</span></li>
+        </ul>
+      </nav>
+
+      <p class="footer__legal">© <span data-year>2026</span> gomdev. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp (aparece depois de rolar um pouco) -->
+  <a class="wa-float" href="#contato" data-wa aria-label="Conversar no WhatsApp">
+    <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  </a>
+</body>
+</html>

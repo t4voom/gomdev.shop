@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- Modelo usado para gerar os ícones PNG (apple-touch-icon, 192, 512 e favicon). Use ?size=180 -->
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:transparent}svg{display:block}</style></head>
+<body>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#000"/>
+  <g fill="none" stroke="#f5f5f7" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="28" cy="27" r="11"/>
+    <path d="M39 16v22a11 11 0 0 1-20.5 5.5"/>
+  </g>
+  <circle cx="49.5" cy="36.5" r="4" fill="#0a84ff"/>
+</svg>
+<script>
+  const size = Number(new URLSearchParams(location.search).get("size") || 180);
+  const svg = document.getElementById("icon");
+  svg.setAttribute("width", size); svg.setAttribute("height", size);
+  if (new URLSearchParams(location.search).get("rounded")) svg.querySelector("rect").setAttribute("rx", 15);
+</script>
+</body></html>

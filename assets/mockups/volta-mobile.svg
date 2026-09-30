@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <!-- Exemplo de projeto: "Volta Elétrica", prestador de serviço fictício (versão celular) -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffc233" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ffc233" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    .s { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif; }
+  </style>
+
+  <rect width="390" height="844" fill="#0a1a33"/>
+  <circle cx="340" cy="230" r="200" fill="url(#glow)"/>
+  <!-- Linhas de circuito decorativas -->
+  <g stroke="#1b3358" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M300 130h40l20 20v90"/>
+    <path d="M330 300h-30l-16 16v40"/>
+    <circle cx="360" cy="244" r="4"/>
+    <circle cx="284" cy="360" r="4"/>
+  </g>
+
+  <!-- Barra de status -->
+  <g fill="#fff">
+    <text x="46" y="37" class="s" font-size="16" font-weight="600">9:41</text>
+    <rect x="292" y="29" width="3" height="5" rx="1"/><rect x="297" y="27" width="3" height="7" rx="1"/>
+    <rect x="302" y="25" width="3" height="9" rx="1"/><rect x="307" y="23" width="3" height="11" rx="1"/>
+    <path d="M316 27.5a9 9 0 0 1 12 0l-1.6 1.7a6.6 6.6 0 0 0-8.8 0zM319.2 30.8a4.6 4.6 0 0 1 5.6 0L322 33.7z"/>
+    <rect x="336.5" y="23.5" width="23" height="11" rx="3.5" fill="none" stroke="#fff" stroke-opacity=".45"/>
+    <rect x="338.5" y="25.5" width="17" height="7" rx="2"/>
+    <rect x="361" y="27" width="1.6" height="4" rx=".8" fill-opacity=".45"/>
+  </g>
+
+  <!-- Navegação -->
+  <rect x="24" y="76" width="36" height="36" rx="10" fill="#ffc233"/>
+  <path d="M44.5 82l-10 14h8l-3 10 10-14h-8z" fill="#0a1a33"/>
+  <text x="72" y="101" class="s" font-size="19" fill="#fff"><tspan font-weight="800">Volta</tspan><tspan font-weight="400" fill="#b5c3da"> Elétrica</tspan></text>
+  <circle cx="346" cy="94" r="20" fill="none" stroke="#2a4570" stroke-width="1.5"/>
+  <path d="M339 87.5c0-1 .8-1.5 1.6-1.5h2.2l1.4 3.6-1.8 1.4a10 10 0 0 0 5 5l1.4-1.8 3.6 1.4v2.2c0 .8-.6 1.6-1.6 1.6A12.4 12.4 0 0 1 339 87.5z" stroke="#fff" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+
+  <!-- Texto -->
+  <rect x="24" y="140" width="214" height="30" rx="15" fill="#ffc233" fill-opacity=".14"/>
+  <circle cx="40" cy="155" r="4" fill="#ffc233"/>
+  <text x="52" y="160" class="s" font-size="12" font-weight="700" fill="#ffd35c">Atendimento no mesmo dia</text>
+  <g class="s" font-size="36" font-weight="800" fill="#fff" letter-spacing="-1.2">
+    <text x="22" y="220">Eletricista em</text>
+    <text x="22" y="262">Blumenau, sem</text>
+    <text x="22" y="304" fill="#ffc233">dor de cabeça.</text>
+  </g>
+  <g class="s" font-size="15" fill="#b5c3da">
+    <text x="24" y="340">Instalações, reparos e manutenção com</text>
+    <text x="24" y="362">garantia e preço combinado antes.</text>
+  </g>
+  <rect x="24" y="388" width="342" height="54" rx="27" fill="#ffc233"/>
+  <text x="195" y="421" class="s" font-size="17" font-weight="800" fill="#0a1a33" text-anchor="middle">Pedir orçamento</text>
+  <g class="s" font-size="13" fill="#9fb0cc">
+    <circle cx="118" cy="467" r="7" fill="none" stroke="#9fb0cc" stroke-width="1.6"/>
+    <path d="M118 463.5v3.5l2.4 1.6" stroke="#9fb0cc" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <text x="132" y="472">Resposta em até 15 minutos</text>
+  </g>
+
+  <!-- Formulário rápido -->
+  <rect x="16" y="500" width="358" height="310" rx="28" fill="#fff"/>
+  <g class="s">
+    <text x="40" y="540" font-size="17" font-weight="800" fill="#0a1a33">Do que você precisa?</text>
+    <g font-size="13" font-weight="600" text-anchor="middle">
+      <rect x="40" y="558" width="78" height="36" rx="18" fill="#eef2f8"/><text x="79" y="581" fill="#0a1a33">Tomada</text>
+      <rect x="126" y="558" width="90" height="36" rx="18" fill="#eef2f8"/><text x="171" y="581" fill="#0a1a33">Disjuntor</text>
+      <rect x="224" y="558" width="90" height="36" rx="18" fill="#0a1a33"/><text x="269" y="581" fill="#fff">Chuveiro</text>
+      <rect x="40" y="602" width="98" height="36" rx="18" fill="#eef2f8"/><text x="89" y="625" fill="#0a1a33">Iluminação</text>
+      <rect x="146" y="602" width="116" height="36" rx="18" fill="#eef2f8"/><text x="204" y="625" fill="#0a1a33">Quadro de luz</text>
+    </g>
+    <text x="40" y="668" font-size="12" font-weight="600" fill="#5a6a85">Seu bairro</text>
+    <rect x="40" y="678" width="310" height="46" rx="14" fill="none" stroke="#d3dbe8" stroke-width="1.5"/>
+    <text x="56" y="707" font-size="15" fill="#0a1a33">Vila Nova</text>
+    <rect x="40" y="740" width="310" height="48" rx="24" fill="#ffc233"/>
+    <text x="195" y="770" font-size="15" font-weight="800" fill="#0a1a33" text-anchor="middle">Enviar pelo WhatsApp</text>
+  </g>
+
+  <!-- Selos -->
+  <g class="s" font-size="13" fill="#b5c3da">
+    <path d="M32 830l6-3 6 3v5c0 4-3 6-6 7-3-1-6-3-6-7z" stroke="#ffc233" stroke-width="1.6" fill="none"/>
+    <text x="54" y="840">Garantia de 90 dias</text>
+  </g>
+</svg>

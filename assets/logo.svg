@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 131 34" width="131" height="34" role="img" aria-label="gomdev">
+  <title>gomdev</title>
+  <!-- Wordmark monoline: todas as letras são traços com a mesma espessura e pontas arredondadas -->
+  <g fill="none" stroke="#1d1d1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8.5" cy="17" r="7"/>
+    <path d="M15.5 10V25a7 7 0 0 1-13.06 3.5"/>
+    <circle cx="29" cy="17" r="7"/>
+    <path d="M42.5 24V14.5a4.5 4.5 0 0 1 9 0V24M51.5 14.5a4.5 4.5 0 0 1 9 0V24"/>
+    <circle cx="74" cy="17" r="7"/>
+    <path d="M81 2V24"/>
+    <path d="M87.5 17h14a7 7 0 1 0-2.05 4.95"/>
+    <path d="M108 10l6.5 14L121 10"/>
+  </g>
+  <circle cx="128" cy="23" r="2.5" fill="#0071e3"/>
+</svg>
