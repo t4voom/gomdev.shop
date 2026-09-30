@@ -22,7 +22,7 @@ As páginas `.html` já estão prontas e são as que vão para o ar. Elas são *
 npx serve .
 ```
 
-Abra http://localhost:3000. Use o `serve` (e não abrir o arquivo direto) porque os links usam endereços limpos, como `/portfolio`.
+Abra http://localhost:3000. Também dá para abrir o `index.html` direto no navegador: todos os caminhos são relativos, então o site funciona no domínio próprio, no GitHub Pages (`t4voom.github.io/gomdev.shop/`) ou em qualquer pasta.
 
 ## Editar o conteúdo: `js/config.js`
 

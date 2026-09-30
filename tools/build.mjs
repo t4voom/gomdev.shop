@@ -245,6 +245,24 @@ function footer(crumb) {
   </footer>`;
 }
 
+/* Troca caminhos que começam com "/" por caminhos relativos ao arquivo.
+   Assim o site funciona em qualquer lugar: domínio próprio, GitHub Pages
+   (t4voom.github.io/gomdev.shop/), Netlify, Vercel ou abrindo o arquivo direto. */
+function relativize(html, file) {
+  const prefix = "../".repeat(file.split("/").length - 1);
+  const toFile = (p) => {
+    const [pathPart, hash = ""] = p.split("#");
+    let target = pathPart;
+    if (target === "") target = "index.html";
+    else if (!/\.[a-z0-9]+$/i.test(target)) target += ".html";
+    return prefix + target + (hash ? `#${hash}` : "");
+  };
+  return html
+    .replace(/(href|src)="\/(?!\/)([^"]*)"/g, (m, attr, p) => `${attr}="${toFile(p)}"`)
+    .replace(/srcset="([^"]*)"/g, (m, set) => `srcset="${set.replace(/(^|,\s*)\/(?!\/)/g, `$1${prefix}`)}"`)
+    .replace(/url\((['"]?)\/(?!\/)/g, `url($1${prefix}`);
+}
+
 function page({ file, url, title, description, current, crumb, localnav = "", ribbon: showRibbon = false, body, jsonld, image, noindex }) {
   const html = `${head({ title, description, url, image, jsonld, noindex })}
 <body>
@@ -262,7 +280,7 @@ ${body}
 `;
   const out = path.join(root, file);
   mkdirSync(path.dirname(out), { recursive: true });
-  writeFileSync(out, html.replace(/\n\s*\n\s*\n/g, "\n\n"));
+  writeFileSync(out, relativize(html, file).replace(/\n\s*\n\s*\n/g, "\n\n"));
   return url;
 }
 
