@@ -9,14 +9,12 @@
        node tools/build.mjs
      para gerar de novo as páginas HTML (só precisa ter o Node instalado).
 
-   Dicas: textos ficam entre aspas; preços são números sem "R$" e sem ponto
-   (ex.: 1890); nas mensagens, {plano}, {preco} e {projeto} são trocados
-   sozinhos.
+   Dicas: textos ficam entre aspas; nas mensagens, {projeto} é trocado
+   sozinho pelo nome do projeto.
    ========================================================================== */
 
-/* TROQUE AQUI: seu WhatsApp com 55 (Brasil) + DDD + número, só dígitos.
-   Exemplo: (47) 98765-4321  →  "5547987654321". O número abaixo é FICTÍCIO. */
-const WHATSAPP_NUMBER = "5547900000000";
+/* Seu WhatsApp com 55 (Brasil) + DDD + número, só dígitos: (47) 99938-1495 */
+const WHATSAPP_NUMBER = "5547999381495";
 
 window.SITE_CONFIG = {
   ownerName: "Gustavo",
@@ -26,7 +24,7 @@ window.SITE_CONFIG = {
     number: WHATSAPP_NUMBER,
     messages: {
       default: "Olá, Gustavo! Vi o seu site e quero conversar sobre um site para o meu negócio.",
-      plan: "Olá, Gustavo! Tenho interesse no plano {plano} (a partir de {preco}). Podemos conversar?",
+      quote: "Olá, Gustavo! Quero um orçamento de landing page para o meu negócio.",
       project: "Olá, Gustavo! Vi o projeto {projeto} no seu portfólio e quero algo parecido para o meu negócio.",
     },
     responseTime: "Resposta em até 24h em dias úteis.",
@@ -39,7 +37,10 @@ window.SITE_CONFIG = {
   },
 
   /* Faixa de aviso no topo da página inicial (deixe "" para esconder). */
-  ribbon: "Agenda aberta para novos projetos. Sites a partir de R$ 990.",
+  ribbon: "Agenda aberta: sua landing page pronta em até 2 dias.",
+
+  /* Prazo de entrega, usado nos textos do site. */
+  delivery: "2 dias",
 
   /* --------------------------------------------------------------------
      Portfólio
@@ -50,6 +51,8 @@ window.SITE_CONFIG = {
        Deixe "" se ainda não estiver no ar.
      - tint: cor principal do projeto (usada nos detalhes da página)
      - device: "both" mostra computador + celular; "phone" só celular
+     - hidden: true tira o projeto do site sem apagar (os apps estão assim
+       enquanto você só faz sites simples; mude para false para mostrar)
      -------------------------------------------------------------------- */
   portfolio: [
     {
@@ -150,6 +153,7 @@ window.SITE_CONFIG = {
     },
     {
       slug: "forja",
+      hidden: true,
       name: "FORJA",
       kind: "app",
       category: "Aplicativo de treino",
@@ -169,6 +173,7 @@ window.SITE_CONFIG = {
     },
     {
       slug: "forja-trainer",
+      hidden: true,
       name: "FORJA Trainer",
       kind: "app",
       category: "Sistema para academias",
@@ -188,6 +193,7 @@ window.SITE_CONFIG = {
     },
     {
       slug: "juliano-entregas",
+      hidden: true,
       name: "Juliano Entregas",
       kind: "app",
       category: "Sistema de entregas",
@@ -207,6 +213,7 @@ window.SITE_CONFIG = {
     },
     {
       slug: "meu-treino",
+      hidden: true,
       name: "Meu Treino",
       kind: "app",
       category: "Aplicativo de treino",
@@ -227,95 +234,27 @@ window.SITE_CONFIG = {
   ],
 
   /* --------------------------------------------------------------------
-     Serviços (fileira de ícones e página Serviços).
-     icon: site, landing, store, calendar, app, care
+     O que vem em toda landing page (fileira de ícones e página Serviços).
+     icon: landing, phone, whatsapp, pin, search, speed, lock, globe, pen, care
      -------------------------------------------------------------------- */
   services: [
-    { icon: "landing", name: "Página única", text: "Uma página bonita e direta ao ponto, para começar a ser encontrado." },
-    { icon: "site", name: "Site completo", text: "Várias páginas com serviços, fotos, mapa, formulário e SEO local." },
-    { icon: "store", name: "Loja virtual", text: "Vitrine de produtos com pedido pelo WhatsApp ou pagamento online." },
-    { icon: "calendar", name: "Agendamento", text: "Horários marcados pelo celular, sem troca infinita de mensagens." },
-    { icon: "app", name: "Apps e sistemas", text: "Ferramentas sob medida: treinos, entregas, controle interno." },
-    { icon: "care", name: "Manutenção", text: "Atualizo textos, fotos e preços sempre que você precisar." },
+    { icon: "landing", name: "Página única", text: "Tudo o que o cliente precisa saber em uma página bonita e direta ao ponto." },
+    { icon: "phone", name: "Perfeita no celular", text: "Pensada primeiro para a tela pequena, onde o seu cliente está." },
+    { icon: "whatsapp", name: "WhatsApp em um toque", text: "Botões com a mensagem já escrita. O cliente só toca em enviar." },
+    { icon: "pin", name: "Mapa e rota", text: "Endereço com Google Maps e botão “Como chegar”." },
+    { icon: "search", name: "Aparece no Google", text: "Títulos, descrições e dados certos para buscas da sua região." },
+    { icon: "speed", name: "Carrega rápido", text: "Nota acima de 90 no teste de velocidade do Google." },
+    { icon: "lock", name: "Seguro", text: "Cadeado de segurança (HTTPS) sem custo extra." },
+    { icon: "globe", name: "Seu domínio", text: "seunegocio.com.br configurado e no seu nome." },
   ],
-
-  /* --------------------------------------------------------------------
-     Planos e preços (valores sugeridos para pequenos negócios).
-     compare: itens da tabela de comparação, na mesma ordem em todos
-     -------------------------------------------------------------------- */
-  plans: [
-    {
-      id: "essencial",
-      name: "Essencial",
-      tagline: "Para começar a ser encontrado.",
-      price: 990,
-      installments: "ou em até 10x no cartão",
-      delivery: "7 dias úteis",
-      features: [
-        "Site de uma página, feito sob medida",
-        "Perfeito no celular e no computador",
-        "Botão direto para o seu WhatsApp",
-        "Publicação com o seu domínio",
-      ],
-    },
-    {
-      id: "profissional",
-      name: "Profissional",
-      tagline: "Para aparecer no Google da sua cidade.",
-      price: 1890,
-      installments: "ou em até 10x no cartão",
-      delivery: "14 dias úteis",
-      featured: true,
-      badge: "Mais escolhido",
-      features: [
-        "Tudo do Essencial",
-        "Até 6 seções ou páginas",
-        "Mapa, formulário e avaliações do Google",
-        "SEO local para buscas da sua região",
-      ],
-    },
-    {
-      id: "completo",
-      name: "Completo",
-      tagline: "Para vender ou agendar pela internet.",
-      price: 3490,
-      installments: "ou em até 10x no cartão",
-      delivery: "30 dias úteis",
-      features: [
-        "Tudo do Profissional",
-        "Loja virtual ou agendamento online",
-        "Painel para você atualizar sozinho",
-        "Suporte estendido de 90 dias",
-      ],
-    },
-  ],
-
-  /* Tabela "Compare os planos": true = incluso, false = não incluso,
-     texto = valor específico. Uma coluna por plano, na ordem acima. */
-  compare: [
-    { label: "Design exclusivo", values: [true, true, true] },
-    { label: "Adaptado para celular", values: [true, true, true] },
-    { label: "Botão de WhatsApp", values: [true, true, true] },
-    { label: "Páginas ou seções", values: ["1 página", "Até 6", "Sem limite"] },
-    { label: "Mapa e avaliações do Google", values: [false, true, true] },
-    { label: "Formulário de contato", values: [false, true, true] },
-    { label: "SEO local", values: [false, true, true] },
-    { label: "Loja virtual ou agendamento", values: [false, false, true] },
-    { label: "Painel para atualizar sozinho", values: [false, false, true] },
-    { label: "Suporte após a publicação", values: ["30 dias", "30 dias", "90 dias"] },
-    { label: "Prazo de entrega", values: ["7 dias úteis", "14 dias úteis", "30 dias úteis"] },
-  ],
-
-  plansNote:
-    "Domínio (cerca de R$ 40 por ano) não incluso. Manutenção mensal opcional a partir de R$ 59.",
 
   /* --------------------------------------------------------------------
      Números da página Sobre. Use só o que é verdade hoje.
      "{projetos}" vira a quantidade de itens do portfólio.
      -------------------------------------------------------------------- */
   stats: [
-    { value: "{projetos}", suffix: "", label: "projetos no portfólio, entre sites e aplicativos." },
-    { value: 7, suffix: " dias", label: "para colocar um site Essencial no ar." },
+    { value: "{projetos}", suffix: "", label: "sites de negócios locais no portfólio." },
+    { value: 2, suffix: " dias", label: "no máximo para a sua landing page ficar pronta." },
     { value: 30, suffix: " dias", label: "de suporte grátis depois da publicação." },
     { value: 24, suffix: "h", label: "no máximo para responder você, em dias úteis." },
   ],
@@ -335,6 +274,12 @@ window.SITE_CONFIG = {
         "Todo site sai com nota acima de 90 no teste de velocidade do Google. Se não bater, eu ajusto sem custo. Cliente que espera carregar é cliente que vai embora.",
     },
     {
+      icon: "clock",
+      title: "Pronto em até 2 dias.",
+      detail:
+        "Do primeiro papo à landing page no ar em até 2 dias. Você vê o site funcionando antes de publicar e pede os ajustes que quiser.",
+    },
+    {
       icon: "revisions",
       title: "Revisões até você aprovar.",
       detail:
@@ -350,7 +295,7 @@ window.SITE_CONFIG = {
       icon: "support",
       title: "Suporte depois da entrega.",
       detail:
-        "Nos 30 dias após a publicação (90 no plano Completo), dúvidas e pequenos ajustes são por minha conta. Depois, a manutenção mensal é opcional.",
+        "Nos 30 dias após a publicação, dúvidas e pequenos ajustes são por minha conta. Depois, se quiser, combinamos uma manutenção mensal.",
     },
     {
       icon: "pin",
@@ -362,36 +307,40 @@ window.SITE_CONFIG = {
 
   /* Passo a passo (página Serviços). */
   steps: [
-    { tag: "Dia 1", title: "Conversa", text: "Você me conta sobre o seu negócio e o que precisa. Pode ser por texto ou áudio." },
-    { tag: "Até 2 dias", title: "Proposta e rascunho", text: "Você recebe uma proposta com valor fechado e o primeiro rascunho do visual." },
-    { tag: "No seu ritmo", title: "Ajustes", text: "Você revisa no celular, pede mudanças e eu ajusto até ficar do jeito que imaginou." },
-    { tag: "No ar", title: "Publicação e suporte", text: "Coloco o site no ar com o seu domínio e continuo por perto para o que precisar." },
+    { tag: "Hoje", title: "Conversa", text: "Você me conta sobre o seu negócio pelo WhatsApp e eu te passo o orçamento." },
+    { tag: "Dia 1", title: "Primeira versão", text: "Monto a landing page com os seus textos, fotos e contatos, e te mando o link." },
+    { tag: "Dia 2", title: "Ajustes", text: "Você revisa no celular, pede mudanças e eu ajusto até ficar do jeito que imaginou." },
+    { tag: "No ar", title: "Publicação e suporte", text: "Coloco o site no ar com o seu domínio e continuo por perto por 30 dias." },
   ],
 
   faq: [
     {
+      q: "Quanto custa?",
+      a: "Cada negócio tem uma necessidade, então cada site tem o seu preço. Me chama no WhatsApp, conta o que você precisa e em poucos minutos eu te passo um orçamento fechado, sem compromisso.",
+    },
+    {
       q: "Quanto tempo leva para o site ficar pronto?",
-      a: "Depende do plano: o Essencial fica pronto em até 7 dias úteis, o Profissional em até 14 e o Completo em até 30. O prazo começa quando você me envia os textos e as fotos.",
+      a: "Até 2 dias depois que você me envia os textos, as fotos e os contatos. Se precisar de ajuda com os textos, eu também faço.",
     },
     {
       q: "O que eu preciso enviar?",
       a: "O básico: logo (se tiver), fotos do seu negócio, a lista de serviços ou produtos e os contatos. Não tem fotos boas ou não sabe o que escrever? Eu ajudo com os textos e explico como tirar boas fotos com o celular.",
     },
     {
+      q: "O que é uma landing page?",
+      a: "É um site de uma página só, feito para apresentar o seu negócio e levar o cliente direto para o WhatsApp. Tem tudo o que importa: quem você é, o que oferece, fotos, avaliações, endereço e contato.",
+    },
+    {
       q: "Como funcionam o domínio e a hospedagem?",
       a: "O domínio (por exemplo, seunegocio.com.br) fica no seu nome e custa cerca de R$ 40 por ano no Registro.br. A hospedagem eu configuro em um serviço rápido e confiável, que na maioria dos casos não tem custo mensal.",
     },
     {
-      q: "E a manutenção depois que o site estiver no ar?",
-      a: "Você tem 30 dias de suporte grátis (90 no plano Completo). Depois, pode contratar a manutenção mensal a partir de R$ 59 ou pedir ajustes avulsos só quando precisar.",
+      q: "E depois que o site estiver no ar?",
+      a: "Você tem 30 dias de suporte grátis para dúvidas e pequenos ajustes. Depois, é só me chamar quando precisar mudar alguma coisa.",
     },
     {
-      q: "Quais são as formas de pagamento?",
-      a: "Pix ou cartão de crédito em até 10x. O mais comum é 50% para começar e 50% na entrega, antes de o site ir para o ar.",
-    },
-    {
-      q: "Vocês também fazem aplicativos?",
-      a: "Sim. Além de sites, faço aplicativos e sistemas sob medida, como os apps de treino e de entregas do portfólio. O valor depende do que o app precisa fazer; me conta a ideia pelo WhatsApp.",
+      q: "Vocês fazem loja virtual ou sistema?",
+      a: "Por enquanto estou focado em sites simples, como landing pages, para entregar rápido e bem feito. Se você precisa de algo maior, me chama que eu te digo o melhor caminho.",
     },
   ],
 };

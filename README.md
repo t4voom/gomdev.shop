@@ -1,10 +1,10 @@
 # gomdev.shop
 
-Site da gomdev: criação de sites e aplicativos para negócios locais em Blumenau, SC.
+Site da gomdev: criação de landing pages para negócios locais em Blumenau, SC.
 HTML, CSS e JavaScript puros, sem framework e sem dependências. Visual inspirado na apple.com.
 
 ```
-index.html, portfolio.html, servicos.html, planos.html, sobre.html, contato.html, 404.html
+index.html, portfolio.html, servicos.html, sobre.html, contato.html, 404.html
 projetos/<projeto>.html   uma página para cada projeto do portfólio
 css/style.css             estilos (cores, fontes e espaçamentos no topo, em :root)
 js/config.js              ← TUDO o que você vai querer mudar
@@ -28,12 +28,12 @@ Abra http://localhost:3000. Também dá para abrir o `index.html` direto no nave
 
 | O quê | Onde no `config.js` | Precisa gerar de novo? |
 | --- | --- | --- |
-| Número do WhatsApp | `WHATSAPP_NUMBER`, na primeira linha (55 + DDD + número) | Não, mas recomendo |
+| Número do WhatsApp | `WHATSAPP_NUMBER`, na primeira linha (hoje: 47 99938-1495) | Não, mas recomendo |
+| Prazo de entrega | `delivery` (hoje: 2 dias) | Sim |
 | Instagram | `instagram` | Não, mas recomendo |
 | Faixa de aviso no topo | `ribbon` | Sim |
-| Projetos do portfólio | `portfolio` (inclui o link publicado de cada um em `url`) | Sim |
-| Serviços, passos, motivos | `services`, `steps`, `reasons` | Sim |
-| Planos, preços e tabela | `plans`, `compare`, `plansNote` | Sim |
+| Projetos do portfólio | `portfolio` (link publicado em `url`; `hidden: true` esconde, como os apps hoje) | Sim |
+| O que vem junto, passos, motivos | `services`, `steps`, `reasons` | Sim |
 | Números da página Sobre | `stats` | Sim |
 | Perguntas frequentes | `faq` | Sim |
 
@@ -91,10 +91,9 @@ Também funciona no GitHub Pages e na Netlify: é só apontar para a raiz do rep
 
 ## Antes de publicar, revise
 
-- [ ] `WHATSAPP_NUMBER` em `js/config.js` (o número atual é fictício)
 - [ ] Os links publicados de cada projeto em `portfolio[].url` (só o Garden Blue tem link hoje)
 - [ ] O texto da página Sobre, no `tools/build.mjs` (escrevi uma história curta; ajuste para a sua)
-- [ ] Preços, parcelamento e itens de cada plano (`plans`, `compare`, `plansNote`)
+- [ ] O site não mostra preços: o orçamento é sempre pelo WhatsApp
 - [ ] Link e @ do Instagram (`instagram`)
 - [ ] Se os clientes do portfólio concordam em aparecer no site
 

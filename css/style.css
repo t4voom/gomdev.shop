@@ -1337,53 +1337,6 @@ html:has(.lnav) .gnav {
   }
 }
 
-/* ---------- Filtro em abas (segmented control) ---------- */
-.segmented {
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 980px;
-  background: var(--gray-100);
-}
-
-.segmented__btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  min-height: 38px;
-  padding: .375rem 1.125rem;
-  border: 0;
-  border-radius: 980px;
-  background: transparent;
-  font-size: .9375rem;
-  color: var(--text);
-  cursor: pointer;
-  transition: background-color .35s var(--ease), box-shadow .35s var(--ease);
-}
-
-.segmented__btn::after {
-  content: "";
-  position: absolute;
-  inset: -3px -1px;
-}
-
-.segmented__btn[aria-pressed="true"] {
-  background: var(--white);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, .12), 0 3px 1px rgba(0, 0, 0, .04);
-  font-weight: 600;
-}
-
-.segmented__count {
-  font-size: .75rem;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-[data-group][hidden] {
-  display: none;
-}
-
 /* ---------- Fileira de ícones (chapter nav) ---------- */
 .chapters {
   margin-top: clamp(2rem, 4vw, 3rem);
@@ -1981,48 +1934,17 @@ html:has(.lnav) .gnav {
   color: var(--text-muted);
 }
 
-/* ---------- Planos ---------- */
-.plans {
-  display: grid;
-  gap: var(--gap);
-  max-width: 440px;
-  margin-inline: auto;
-  padding-top: 14px;
-}
-
-.plan {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: clamp(2.25rem, 3.4vw, 3rem) clamp(1.5rem, 2.6vw, 2.25rem);
-  border-radius: var(--radius-xl);
-  background: var(--gray-50);
+/* ---------- Orçamento ---------- */
+.quote {
   text-align: center;
 }
 
-.plan--featured {
-  background: var(--white);
-  box-shadow: 0 0 0 2px var(--accent), var(--shadow-card);
+.quote__inner {
+  max-width: calc(46rem + var(--gutter) * 2);
 }
 
-.plan__badge {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  padding: .375rem .875rem;
-  border-radius: 980px;
-  background: var(--accent);
-  color: var(--white);
-  font-size: .75rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  white-space: nowrap;
-  transform: translate(-50%, -50%);
-}
-
-.plan__icon {
-  display: grid;
+.quote__icon {
+  display: inline-grid;
   width: 72px;
   height: 72px;
   place-items: center;
@@ -2032,163 +1954,28 @@ html:has(.lnav) .gnav {
   box-shadow: 0 12px 24px -12px rgba(122, 92, 255, .6);
 }
 
-.plan__icon .icon {
+.quote__icon .icon {
   width: 36px;
   height: 36px;
   stroke-width: 1.4;
 }
 
-.plan__name {
+.quote__title {
   margin-top: 1.5rem;
-  font-size: 2rem;
+  font-size: var(--fs-title);
   font-weight: 600;
-  letter-spacing: -.025em;
-  line-height: 1.1;
-}
-
-.plan__tagline {
-  margin-top: .5rem;
-  color: var(--text-muted);
-}
-
-.plan__price {
-  display: grid;
-  margin: 1.75rem 0;
-}
-
-.plan__from {
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-}
-
-.plan__amount {
-  font-size: clamp(2.5rem, 2rem + 1.4vw, 3rem);
-  font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.07;
   letter-spacing: -.03em;
-  font-variant-numeric: tabular-nums;
-}
-
-.plan__installments {
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-}
-
-.plan__features {
-  display: grid;
-  gap: .875rem;
-  width: 100%;
-  margin-top: 2rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--line);
-  text-align: left;
-  font-size: 1rem;
-}
-
-.plan__features li {
-  display: flex;
-  gap: .625rem;
-}
-
-.plan__features .icon {
-  margin-top: .1em;
-  color: var(--link-light);
-  stroke-width: 2.2;
-}
-
-.plan__delivery {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: auto;
-  padding-top: 1.75rem;
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-}
-
-.plans__note {
-  max-width: 40rem;
-  margin: 2.5rem auto 0;
-  font-size: var(--fs-small);
-  text-align: center;
-  color: var(--text-muted);
   text-wrap: balance;
 }
 
-@media (min-width: 960px) {
-  .plans {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    max-width: none;
-  }
-}
-
-/* Tabela de comparação */
-.compare__wrap {
-  position: relative;
-  margin-top: clamp(2rem, 4vw, 3rem);
-  overflow-x: auto;
-  border-radius: var(--radius-xl);
-  background: var(--white);
-}
-
-.compare {
-  width: 100%;
-  min-width: 620px;
-  border-collapse: collapse;
-  font-size: 1rem;
-}
-
-.compare th,
-.compare td {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-  vertical-align: middle;
-}
-
-.compare tbody tr:last-child > * {
-  border-bottom: 0;
-}
-
-.compare tbody th {
-  font-weight: 400;
-  text-align: left;
-}
-
-.compare thead th {
-  padding-block: 1.75rem 1.25rem;
-}
-
-.compare__plan {
-  display: block;
-  font-size: 1.3125rem;
-  font-weight: 600;
-  letter-spacing: -.02em;
-}
-
-.compare__price {
-  display: block;
-  font-size: var(--fs-small);
-  font-weight: 400;
+.quote__lead {
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+  font-size: var(--fs-sub);
+  line-height: 1.38;
   color: var(--text-muted);
-}
-
-.compare td {
-  color: var(--text-muted);
-}
-
-.compare__yes {
-  width: 22px;
-  height: 22px;
-  color: var(--link-light);
-  stroke-width: 2.2;
-}
-
-.compare__no {
-  width: 22px;
-  height: 22px;
-  color: var(--gray-200);
-  stroke-width: 2;
+  text-wrap: balance;
 }
 
 /* ---------- Dúvidas (acordeão) ---------- */

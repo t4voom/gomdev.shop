@@ -24,7 +24,7 @@
     if (number) {
       $$("[data-wa]").forEach((a) => {
         const template = messages[a.dataset.wa] || messages.default || "";
-        a.href = waUrl(fill(template, { plano: a.dataset.plano || "", preco: a.dataset.preco || "", projeto: a.dataset.projeto || "" }));
+        a.href = waUrl(fill(template, { projeto: a.dataset.projeto || "" }));
       });
     }
     const ig = CFG.instagram?.url;
@@ -162,20 +162,6 @@
     });
   }
 
-  /* ---------- Filtro do portfólio ---------- */
-  function initFilter() {
-    const buttons = $$("[data-filter]");
-    if (!buttons.length) return;
-    const groups = $$("[data-group]");
-    buttons.forEach((btn) =>
-      btn.addEventListener("click", () => {
-        const value = btn.dataset.filter;
-        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-        groups.forEach((g) => (g.hidden = value !== "all" && g.dataset.group !== value));
-      })
-    );
-  }
-
   /* ---------- Janelas de detalhes (<dialog>) ---------- */
   function initDialogs() {
     $$("[data-dialog]").forEach((btn) => {
@@ -260,7 +246,6 @@
   initScrollingPhones();
   initCounters();
   initShelves();
-  initFilter();
   initDialogs();
   initFaq();
   initFooter();

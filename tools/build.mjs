@@ -19,7 +19,7 @@ const YEAR = new Date().getFullYear();
 const sandbox = { window: {} };
 vm.runInNewContext(readFileSync(path.join(root, "js/config.js"), "utf8"), sandbox);
 const C = sandbox.window.SITE_CONFIG;
-const PROJECTS = C.portfolio;
+const PROJECTS = C.portfolio.filter((p) => !p.hidden);
 const SITES = PROJECTS.filter((p) => p.kind === "site");
 const APPS = PROJECTS.filter((p) => p.kind === "app");
 
@@ -95,7 +95,6 @@ const LOGO = (cls = "logo") => `<svg class="${cls}" viewBox="0 0 131 34" aria-hi
 const NAV = [
   ["/portfolio", "Portfólio"],
   ["/servicos", "Serviços"],
-  ["/planos", "Planos"],
   ["/sobre", "Sobre"],
   ["/contato", "Contato"],
 ];
@@ -223,7 +222,7 @@ function footer(crumb) {
   return `<footer class="footer">
     <div class="container">
       <div class="footer__notes">
-        <p>Preços “a partir de” são pontos de partida: o valor final sai na proposta, depois da nossa conversa. Domínio não incluso.</p>
+        <p>Cada projeto tem o seu preço: o orçamento sai depois de uma conversa rápida pelo WhatsApp, sem compromisso.</p>
         <p>Os projetos do portfólio pertencem aos respectivos clientes e aparecem aqui como exemplos do meu trabalho.</p>
       </div>
       <nav class="footer__crumbs" aria-label="Você está aqui">
@@ -231,10 +230,10 @@ function footer(crumb) {
         ${crumb ? `${icon("chevron-right")}<span>${esc(crumb)}</span>` : ""}
       </nav>
       <div class="fdir">
-        ${col("Explorar", [["/", "Início"], ["/portfolio", "Portfólio"], ["/servicos", "Serviços"], ["/planos", "Planos e preços"], ["/sobre", "Sobre"]])}
+        ${col("Explorar", [["/", "Início"], ["/portfolio", "Portfólio"], ["/servicos", "Serviços"], ["/servicos#orcamento", "Orçamento"], ["/sobre", "Sobre"]])}
         ${col("Sites", SITES.map((p) => [projectUrl(p), p.name]))}
-        ${col("Apps e sistemas", APPS.map((p) => [projectUrl(p), p.name]))}
-        ${col("Contato", [["/contato", "Fale comigo"], [waUrl(C.whatsapp.messages.default), "WhatsApp", true], [C.instagram.url, `Instagram ${C.instagram.handle}`, true], ["/planos#duvidas", "Perguntas frequentes"]])}
+        ${APPS.length ? col("Apps e sistemas", APPS.map((p) => [projectUrl(p), p.name])) : ""}
+        ${col("Contato", [["/contato", "Fale comigo"], [waUrl(C.whatsapp.messages.default), "WhatsApp", true], [C.instagram.url, `Instagram ${C.instagram.handle}`, true], ["/servicos#duvidas", "Perguntas frequentes"]])}
       </div>
       <p class="footer__more">Mais formas de falar comigo: <a class="link" ${wa()}>WhatsApp</a> ou <a class="link" href="${esc(C.instagram.url)}" data-instagram target="_blank" rel="noopener">Instagram</a>.</p>
       <div class="footer__legal">
@@ -345,7 +344,7 @@ function reasonsShelf() {
 function chapterNav(active = "") {
   return `<nav class="chapters" aria-label="Tipos de serviço">
     <ul class="chapters__list">
-      ${C.services.map((s, i) => `<li><a class="chapters__item" href="/servicos#servico-${i}">${icon(s.icon, "icon chapters__icon")}<span>${esc(s.name)}</span></a></li>`).join("")}
+      ${C.services.map((s, i) => `<li><a class="chapters__item" href="/servicos#incluso">${icon(s.icon, "icon chapters__icon")}<span>${esc(s.name)}</span></a></li>`).join("")}
     </ul>
   </nav>`;
 }
@@ -356,7 +355,7 @@ function ctaBand(title = 'Vamos tirar seu negócio do <span class="text-gradient
     <div class="container cta__inner reveal">
       <h2 class="cta__title" id="cta-title">${title}</h2>
       <p class="cta__lead">${lead}</p>
-      <div class="btn-row"><a class="btn btn--primary btn--lg" ${wa()}>${icon("whatsapp")}Fale no WhatsApp</a><a class="btn btn--ghost btn--lg" href="/planos">Ver planos</a></div>
+      <div class="btn-row"><a class="btn btn--primary btn--lg" ${wa()}>${icon("whatsapp")}Fale no WhatsApp</a><a class="btn btn--ghost btn--lg" href="/portfolio">Ver portfólio</a></div>
       <p class="cta__note">${esc(C.whatsapp.responseTime)}</p>
     </div>
   </section>`;
@@ -379,21 +378,20 @@ const promo = [...SITES.filter((p) => p !== hero && p !== tileA && p !== tileB),
 urls.push(page({
   file: "index.html",
   url: "/",
-  title: "gomdev | Criação de sites e apps em Blumenau, SC",
-  description: "Sites e aplicativos feitos à mão em Blumenau: rápidos no celular, bonitos e prontos para trazer clientes pelo WhatsApp. Veja o portfólio.",
+  title: "gomdev | Criação de sites e landing pages em Blumenau, SC",
+  description: `Landing pages feitas à mão em Blumenau e prontas em até ${C.delivery}: rápidas no celular, bonitas e feitas para trazer clientes pelo WhatsApp.`,
   ribbon: true,
   jsonld: {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE}/#negocio`,
     name: "gomdev",
-    description: "Criação de sites e aplicativos para negócios locais.",
+    description: "Criação de sites e landing pages para negócios locais.",
     url: `${SITE}/`,
     logo: `${SITE}/assets/logo.svg`,
     image: `${SITE}/assets/og-image.jpg`,
     telephone: `+${C.whatsapp.number}`,
     sameAs: [C.instagram.url],
-    priceRange: `${money(Math.min(...C.plans.map((p) => p.price)))} a ${money(Math.max(...C.plans.map((p) => p.price)))}`,
     founder: { "@type": "Person", name: C.ownerName },
     address: { "@type": "PostalAddress", addressLocality: "Blumenau", addressRegion: "SC", addressCountry: "BR" },
     areaServed: [{ "@type": "City", name: "Blumenau" }, { "@type": "City", name: "Gaspar" }, { "@type": "State", name: "Santa Catarina" }],
@@ -401,9 +399,9 @@ urls.push(page({
   body: `
     <section class="tile tile--hero" aria-labelledby="hero-title">
       <div class="tile__text container">
-        <p class="tile__eyebrow hero-in" style="--d:0">Criação de sites e apps · ${esc(C.city)}</p>
+        <p class="tile__eyebrow hero-in" style="--d:0">Criação de sites · ${esc(C.city)}</p>
         <h1 class="tile__title tile__title--xl hero-in" id="hero-title" style="--d:1">Seu negócio merece um site <span class="text-gradient">à&nbsp;altura.</span></h1>
-        <p class="tile__sub hero-in" style="--d:2">Feito à mão, rápido no celular e pronto para trazer clientes pelo WhatsApp.</p>
+        <p class="tile__sub hero-in" style="--d:2">Feito à mão, rápido no celular e pronto em até ${esc(C.delivery)} para trazer clientes pelo WhatsApp.</p>
         <div class="btn-row hero-in" style="--d:3"><a class="btn btn--primary" href="/portfolio">Ver portfólio</a><a class="btn btn--outline" ${wa()}>Fale comigo</a></div>
       </div>
       <figure class="tile__media hero-in" style="--d:4">
@@ -436,11 +434,11 @@ urls.push(page({
       </article>`).join("")}
     </section>
 
-    ${shelf("portfolio", 'Todo o portfólio. <span class="headline__muted">Sites e apps de verdade.</span>', PROJECTS.map((p) => projectCard(p)))}
+    ${shelf("portfolio", 'Todo o portfólio. <span class="headline__muted">Sites de verdade, no ar.</span>', PROJECTS.map((p) => projectCard(p)))}
 
     <section class="section section--gray" aria-labelledby="servicos-title">
       <div class="container">
-        <h2 class="headline headline--center" id="servicos-title">O que eu faço. <span class="headline__muted">Do primeiro site ao app sob medida.</span></h2>
+        <h2 class="headline headline--center" id="servicos-title">Tudo numa página. <span class="headline__muted">O que vem em toda landing page.</span></h2>
         ${chapterNav()}
       </div>
     </section>
@@ -456,29 +454,21 @@ urls.push(page({
   current: "/portfolio",
   crumb: "Portfólio",
   title: "Portfólio | gomdev",
-  description: `Veja ${PROJECTS.length} projetos da gomdev: sites para pet shops, oficina, barbearia e floricultura, e aplicativos de treino e de entregas.`,
-  localnav: localNav("Portfólio", [["#sites", "Sites"], ["#apps", "Apps"]]),
+  description: `Veja ${SITES.length} sites da gomdev para negócios de Blumenau e Gaspar: pet shops, oficina mecânica, barbearia e floricultura.`,
+  localnav: localNav("Portfólio"),
   body: `
-    ${intro("Portfólio.", "Sites e apps de verdade, para negócios de verdade.", `${SITES.length} sites para negócios de Blumenau e Gaspar e ${APPS.length} aplicativos sob medida. Toque em um projeto para ver os detalhes.`)}
-    <div class="container">
-      <div class="segmented reveal" role="group" aria-label="Filtrar projetos">
-        <button class="segmented__btn" type="button" data-filter="all" aria-pressed="true">Todos <span class="segmented__count">${PROJECTS.length}</span></button>
-        <button class="segmented__btn" type="button" data-filter="site" aria-pressed="false">Sites <span class="segmented__count">${SITES.length}</span></button>
-        <button class="segmented__btn" type="button" data-filter="app" aria-pressed="false">Apps <span class="segmented__count">${APPS.length}</span></button>
-      </div>
-    </div>
-    <section class="section section--tight" id="sites" aria-labelledby="sites-title" data-group="site">
+    ${intro("Portfólio.", "Sites de verdade, para negócios de verdade.", `${SITES.length} sites para negócios de ${[...new Set(SITES.map((p) => p.city.split(",")[0]))].join(" e ")}. Toque em um projeto para ver os detalhes.`)}
+    <section class="section section--tight" id="sites" aria-label="Sites">
       <div class="container">
-        <h2 class="headline" id="sites-title">Sites. <span class="headline__muted">Para ser encontrado e chamado no WhatsApp.</span></h2>
         <div class="pgrid">${SITES.map((p) => projectCard(p)).join("")}</div>
       </div>
     </section>
-    <section class="section section--tight" id="apps" aria-labelledby="apps-title" data-group="app">
+    ${APPS.length ? `<section class="section section--tight" id="apps" aria-labelledby="apps-title">
       <div class="container">
         <h2 class="headline" id="apps-title">Apps e sistemas. <span class="headline__muted">Ferramentas sob medida para o dia a dia.</span></h2>
         <div class="pgrid">${APPS.map((p) => projectCard(p)).join("")}</div>
       </div>
-    </section>
+    </section>` : ""}
     ${ctaBand('Quer o seu <span class="text-gradient">aqui também?</span>', "Me conta sobre o seu negócio. O próximo projeto do portfólio pode ser o seu.")}`,
 }));
 
@@ -559,45 +549,29 @@ PROJECTS.forEach((p, idx) => {
 });
 
 /* ---------- Serviços ---------- */
-const extras = [
-  ["globe", "Domínio próprio", "seunegocio.com.br configurado e no seu nome."],
-  ["lock", "Cadeado de segurança", "Conexão segura (HTTPS) sem custo extra."],
-  ["phone", "Perfeito no celular", "Pensado primeiro para a tela pequena."],
-  ["whatsapp", "WhatsApp com mensagem pronta", "O cliente só toca em enviar."],
-  ["pin", "Mapa e rota", "Endereço com Google Maps e botão “Como chegar”."],
-  ["search", "Aparecer no Google", "Títulos, descrições e dados certos para buscas locais."],
-  ["speed", "Carrega rápido", "Nota acima de 90 no teste de velocidade do Google."],
-  ["pen", "Textos que vendem", "Ajudo a escrever o que o seu cliente quer ler."],
-];
 urls.push(page({
   file: "servicos.html",
   url: "/servicos",
   current: "/servicos",
   crumb: "Serviços",
-  title: "Serviços: sites, lojas, agendamento e apps | gomdev",
-  description: "Página única, site completo, loja virtual, agendamento online, apps sob medida e manutenção. Veja como funciona, do primeiro oi ao site no ar.",
-  localnav: localNav("Serviços", [["#servicos", "O que eu faço"], ["#como-funciona", "Como funciona"], ["#incluso", "O que vem junto"]]),
+  title: "Landing pages para negócios locais | gomdev",
+  description: `Landing page feita sob medida, perfeita no celular e pronta em até ${C.delivery}. Veja o que vem junto, como funciona e peça seu orçamento pelo WhatsApp.`,
+  localnav: localNav("Serviços", [["#incluso", "O que vem junto"], ["#como-funciona", "Como funciona"], ["#orcamento", "Orçamento"], ["#duvidas", "Dúvidas"]], `<a class="btn btn--primary btn--xs" ${wa("quote")}>Pedir orçamento</a>`),
   body: `
-    ${intro("Serviços.", "Tudo o que o seu negócio precisa para crescer na internet.")}
-    <div class="container">${chapterNav()}</div>
+    ${intro("Landing page.", "Uma página, feita para trazer clientes.", `Um site simples, bonito e rápido, com tudo o que o seu cliente precisa para chamar você no WhatsApp. Pronto em até ${esc(C.delivery)}.`)}
 
-    <section class="section section--tight" id="servicos" aria-labelledby="sv-title">
+    <section class="section" id="incluso" aria-labelledby="in-title">
       <div class="container">
-        <h2 class="visually-hidden" id="sv-title">O que eu faço</h2>
-        <ul class="sgrid">
-          ${C.services.map((s, i) => `<li class="reveal"><article class="scard" id="servico-${i}">
-            <span class="scard__icon">${icon(s.icon)}</span>
-            <h3 class="scard__title">${esc(s.name)}</h3>
-            <p class="scard__text">${esc(s.text)}</p>
-            <a class="link link--arrow" ${i === 4 ? `href="/portfolio#apps"` : `href="/planos"`}>${i === 4 ? "Ver apps no portfólio" : "Ver planos"}<span class="visually-hidden">: ${esc(s.name)}</span></a>
-          </article></li>`).join("")}
+        <h2 class="headline headline--center reveal" id="in-title">O que vem junto. <span class="headline__muted">Em toda landing page.</span></h2>
+        <ul class="features">
+          ${C.services.map((s) => `<li class="feature reveal">${icon(s.icon, "icon feature__icon")}<h3 class="feature__title">${esc(s.name)}</h3><p class="feature__text">${esc(s.text)}</p></li>`).join("")}
         </ul>
       </div>
     </section>
 
     <section class="section section--gray" id="como-funciona" aria-labelledby="cf-title">
       <div class="container">
-        <h2 class="headline headline--center reveal" id="cf-title">Como funciona. <span class="headline__muted">Do primeiro oi ao site no ar.</span></h2>
+        <h2 class="headline headline--center reveal" id="cf-title">Como funciona. <span class="headline__muted">Do primeiro oi ao site no ar em até ${esc(C.delivery)}.</span></h2>
         <ol class="steps">
           ${C.steps.map((s, i) => `<li class="step reveal">
             <span class="step__num" aria-hidden="true">${i + 1}</span>
@@ -609,71 +583,16 @@ urls.push(page({
       </div>
     </section>
 
-    <section class="section" id="incluso" aria-labelledby="in-title">
-      <div class="container">
-        <h2 class="headline headline--center reveal" id="in-title">O que vem junto. <span class="headline__muted">Em todo site, sem custo extra.</span></h2>
-        <ul class="features">
-          ${extras.map(([ic, t, d]) => `<li class="feature reveal">${icon(ic, "icon feature__icon")}<h3 class="feature__title">${t}</h3><p class="feature__text">${d}</p></li>`).join("")}
-        </ul>
-      </div>
-    </section>
-    ${reasonsShelf()}
-    ${ctaBand()}`,
-}));
-
-/* ---------- Planos ---------- */
-const planIcons = ["landing", "site", "store"];
-const cell = (v) =>
-  v === true ? `${icon("check", "icon compare__yes")}<span class="visually-hidden">Incluso</span>`
-  : v === false ? `${icon("dash", "icon compare__no")}<span class="visually-hidden">Não incluso</span>`
-  : esc(v);
-urls.push(page({
-  file: "planos.html",
-  url: "/planos",
-  current: "/planos",
-  crumb: "Planos",
-  title: "Planos e preços de sites | gomdev",
-  description: `Sites a partir de ${money(C.plans[0].price)}, em até 10x. Compare os planos Essencial, Profissional e Completo e tire suas dúvidas.`,
-  localnav: localNav("Planos", [["#planos", "Planos"], ["#comparar", "Comparar"], ["#duvidas", "Dúvidas"]]),
-  jsonld: {
-    "@context": "https://schema.org",
-    "@type": "OfferCatalog",
-    name: "Planos de criação de sites",
-    itemListElement: C.plans.map((p) => ({ "@type": "Offer", name: `Site ${p.name}`, description: p.tagline, priceSpecification: { "@type": "PriceSpecification", minPrice: p.price, priceCurrency: "BRL" } })),
-  },
-  body: `
-    ${intro("Planos.", "Preço claro, sem surpresa no final.", "Escolha um ponto de partida. Depois da nossa conversa, você recebe uma proposta com valor fechado.")}
-    <section class="section section--tight" id="planos" aria-label="Lista de planos">
-      <div class="container">
-        <div class="plans">
-          ${C.plans.map((p, i) => `<article class="plan${p.featured ? " plan--featured" : ""} reveal" aria-labelledby="plan-${p.id}">
-            ${p.featured && p.badge ? `<p class="plan__badge">${esc(p.badge)}</p>` : ""}
-            <span class="plan__icon">${icon(planIcons[i] || "site")}</span>
-            <h2 class="plan__name" id="plan-${p.id}">${esc(p.name)}</h2>
-            <p class="plan__tagline">${esc(p.tagline)}</p>
-            <p class="plan__price"><span class="plan__from">A partir de</span><span class="plan__amount">${esc(money(p.price))}</span><span class="plan__installments">${esc(p.installments)}</span></p>
-            <a class="btn btn--primary btn--block" ${wa("plan", { plano: p.name, preco: money(p.price) })}>Quero o ${esc(p.name)}</a>
-            <ul class="plan__features">${p.features.map((f) => `<li>${icon("check")}<span>${esc(f)}</span></li>`).join("")}</ul>
-            <p class="plan__delivery">${icon("clock")}Pronto em até ${esc(p.delivery)}</p>
-          </article>`).join("")}
-        </div>
-        <p class="plans__note">${esc(C.plansNote)}</p>
+    <section class="section quote" id="orcamento" aria-labelledby="q-title">
+      <div class="container quote__inner reveal">
+        <span class="quote__icon">${icon("chat")}</span>
+        <h2 class="quote__title" id="q-title">Quanto custa? <span class="headline__muted">Depende do seu negócio.</span></h2>
+        <p class="quote__lead">Cada projeto tem o seu preço. Me conta o que você precisa pelo WhatsApp e em poucos minutos você recebe um orçamento fechado, sem compromisso.</p>
+        <div class="btn-row"><a class="btn btn--primary btn--lg" ${wa("quote")}>${icon("whatsapp")}Pedir orçamento</a><a class="btn btn--outline btn--lg" href="/contato">Preencher formulário</a></div>
       </div>
     </section>
 
-    <section class="section section--gray" id="comparar" aria-labelledby="cmp-title">
-      <div class="container">
-        <h2 class="headline headline--center reveal" id="cmp-title">Compare os planos.</h2>
-        <div class="compare__wrap reveal" tabindex="0" role="region" aria-label="Tabela de comparação (role para o lado no celular)">
-          <table class="compare">
-            <thead><tr><th scope="col"><span class="visually-hidden">Recurso</span></th>${C.plans.map((p) => `<th scope="col"><span class="compare__plan">${esc(p.name)}</span><span class="compare__price">${esc(money(p.price))}</span></th>`).join("")}</tr></thead>
-            <tbody>${C.compare.map((r) => `<tr><th scope="row">${esc(r.label)}</th>${r.values.map((v) => `<td>${cell(v)}</td>`).join("")}</tr>`).join("")}</tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="duvidas" aria-labelledby="faq-title">
+    <section class="section section--gray" id="duvidas" aria-labelledby="faq-title">
       <div class="container container--narrow">
         <h2 class="headline headline--center reveal" id="faq-title">Perguntas frequentes.</h2>
         <div class="faq reveal">
@@ -685,8 +604,10 @@ urls.push(page({
         <p class="faq__more">Não encontrou a sua? <a class="link" ${wa()}>Pergunte no WhatsApp</a>.</p>
       </div>
     </section>
+    ${reasonsShelf()}
     ${ctaBand()}`,
 }));
+if (existsSync(path.join(root, "planos.html"))) unlinkSync(path.join(root, "planos.html"));
 
 /* ---------- Sobre ---------- */
 const cities = [...new Set(SITES.map((p) => p.city.split(",")[0]))];
@@ -697,7 +618,7 @@ urls.push(page({
   current: "/sobre",
   crumb: "Sobre",
   title: `Sobre o ${C.ownerName} | gomdev`,
-  description: `Sou o ${C.ownerName}, crio sites e aplicativos em Blumenau. Atendimento direto, sem intermediários, do primeiro oi até depois do site no ar.`,
+  description: `Sou o ${C.ownerName}, crio sites e landing pages em Blumenau. Atendimento direto, sem intermediários, do primeiro oi até depois do site no ar.`,
   localnav: localNav("Sobre", [["#historia", "História"], ["#numeros", "Números"], ["#jeito", "Meu jeito"]]),
   body: `
     <section class="about" id="historia" aria-labelledby="about-title">
@@ -705,7 +626,7 @@ urls.push(page({
         <div class="about__mark hero-in" style="--d:0" aria-hidden="true"><span>${esc(C.ownerName[0])}</span></div>
         <p class="tile__eyebrow hero-in" style="--d:1">Sobre a gomdev</p>
         <h1 class="about__title hero-in" id="about-title" style="--d:2">Oi, eu sou o ${esc(C.ownerName)}.</h1>
-        <p class="about__lead hero-in" style="--d:3">Crio sites e aplicativos em ${esc(C.city)}. A gomdev é isso: uma pessoa que desenha, programa e publica cada projeto do começo ao fim.</p>
+        <p class="about__lead hero-in" style="--d:3">Crio sites em ${esc(C.city)}. A gomdev é isso: uma pessoa que desenha, programa e publica cada projeto do começo ao fim.</p>
         <div class="about__story reveal">
           <p>Comecei fazendo ferramentas para resolver problemas meus, como um app para acompanhar treinos. Logo vieram os negócios daqui: um hotel para pets, uma oficina, uma barbearia, uma floricultura.</p>
           <p>Em todos eles, a pergunta era a mesma: como fazer o cliente encontrar e chamar no WhatsApp sem complicação? Cada site do portfólio é a minha resposta para essa pergunta, feita sob medida, sem modelo pronto.</p>
@@ -736,17 +657,17 @@ urls.push(page({
 
 /* ---------- Contato ---------- */
 const kinds = ["Pet shop", "Restaurante ou café", "Loja", "Clínica ou consultório", "Oficina ou serviço", "Salão ou barbearia", "Outro"];
-const needs = ["Site novo", "Refazer meu site", "Loja virtual", "Agendamento", "Aplicativo"];
+const needs = ["Landing page nova", "Refazer meu site", "Ainda não sei"];
 urls.push(page({
   file: "contato.html",
   url: "/contato",
   current: "/contato",
   crumb: "Contato",
   title: "Contato | gomdev",
-  description: "Fale com o Gustavo pelo WhatsApp e receba uma proposta com valor fechado. Criação de sites e apps em Blumenau, SC.",
+  description: "Fale com o Gustavo pelo WhatsApp e receba um orçamento sem compromisso. Landing pages em Blumenau, SC, prontas em até 2 dias.",
   localnav: localNav("Contato"),
   body: `
-    ${intro("Vamos conversar.", "Conte sobre o seu negócio e receba uma proposta.", "Preencha o que quiser abaixo. Ao enviar, o WhatsApp abre com a sua mensagem pronta.")}
+    ${intro("Vamos conversar.", "Conte sobre o seu negócio e receba um orçamento.", "Preencha o que quiser abaixo. Ao enviar, o WhatsApp abre com a sua mensagem pronta.")}
     <section class="section section--tight" aria-label="Formulário de contato">
       <div class="container contact">
         <form class="cform reveal" id="contact-form" novalidate>
@@ -794,9 +715,9 @@ urls.push(page({
             <span class="ccard__icon">${icon("pin")}</span>
             <span class="ccard__body"><span class="ccard__title">${esc(C.city)}</span><span class="ccard__text">Atendo ${cities.join(", ")} e região. Online para todo o Brasil.</span></span>
           </div>
-          <a class="ccard reveal" href="/planos#duvidas">
+          <a class="ccard reveal" href="/servicos#duvidas">
             <span class="ccard__icon">${icon("chat")}</span>
-            <span class="ccard__body"><span class="ccard__title">Perguntas frequentes</span><span class="ccard__text">Prazo, domínio, pagamento e mais.</span></span>
+            <span class="ccard__body"><span class="ccard__title">Perguntas frequentes</span><span class="ccard__text">Preço, prazo, domínio e mais.</span></span>
             ${icon("chevron-right", "icon ccard__chev")}
           </a>
         </aside>
