@@ -1,7 +1,7 @@
 /* ==========================================================================
    gomdev — configuração do site
    --------------------------------------------------------------------------
-   Este é o arquivo que você edita para trocar WhatsApp, preços, portfólio,
+   Este é o arquivo que você edita para trocar WhatsApp, portfólio,
    textos de garantia e perguntas frequentes.
 
    • WhatsApp e Instagram: mudam na hora, é só salvar e publicar.
@@ -56,14 +56,14 @@ window.SITE_CONFIG = {
      -------------------------------------------------------------------- */
   portfolio: [
     {
-      slug: "prince",
-      name: "Prince Pet",
+      slug: "patas-e-cia",
+      name: "Patas & Cia",
       kind: "site",
       category: "Hotel e creche para pets",
       city: "Blumenau, SC",
-      tagline: "Todo pet tratado como realeza.",
+      tagline: "Seu pet feliz, você tranquilo.",
       summary:
-        "Site para hotel, creche, banho e tosa e piscina de pets no Centro de Blumenau, com agendamento direto pelo WhatsApp.",
+        "Site para hotel, creche, banho e tosa e piscina de pets, com agendamento direto pelo WhatsApp.",
       highlights: [
         "Status “Aberto agora” que muda sozinho conforme o horário",
         "Avaliações do Google em destaque",
@@ -76,16 +76,16 @@ window.SITE_CONFIG = {
       featured: true,
     },
     {
-      slug: "jc-auto-mecanica",
-      name: "JC Auto Mecânica",
+      slug: "motor-certo",
+      name: "Motor Certo",
       kind: "site",
       category: "Oficina mecânica",
       city: "Gaspar, SC",
       tagline: "Seu carro em mãos de confiança.",
       summary:
-        "Site para oficina de mecânica geral e injeção eletrônica no Gasparinho, com pedido de orçamento em um toque.",
+        "Site para oficina de mecânica geral e injeção eletrônica, com pedido de orçamento em um toque.",
       highlights: [
-        "Painel de diagnóstico animado no topo",
+        "Visual escuro e forte, com a cor da marca",
         "Pedido de orçamento pronto no WhatsApp",
         "Aviso de pausa para almoço em tempo real",
         "Serviços organizados por tipo de problema",
@@ -95,60 +95,60 @@ window.SITE_CONFIG = {
       device: "both",
     },
     {
-      slug: "garden-blue",
-      name: "Garden Blue",
+      slug: "flor-de-ipe",
+      name: "Flor de Ipê",
       kind: "site",
       category: "Floricultura e garden center",
       city: "Gaspar, SC",
       tagline: "Seu jardim começa aqui.",
       summary:
-        "Site para floricultura e garden center com vitrine de flores de época, plantas, vasos e serviço de paisagismo.",
+        "Site para floricultura e garden center com vitrine de flores, plantas, vasos, presentes e serviço de paisagismo.",
       highlights: [
-        "Ilustrações próprias no lugar de fotos de banco",
+        "Fotos grandes que valorizam flores e arranjos",
         "Vitrine de produtos com pedido pelo WhatsApp",
-        "Seção sazonal de primavera",
-        "Galeria e “Como chegar” com mapa",
+        "Destaque para entrega no mesmo dia",
+        "Horários e “Como chegar” com mapa",
       ],
-      url: "https://t4voom.github.io/GardenBlue/",
-      tint: "#e8672a",
+      url: "",
+      tint: "#d63d7c",
       device: "both",
     },
     {
-      slug: "barbearia-fk",
-      name: "Estética & Barbearia FK",
+      slug: "navalha-nobre",
+      name: "Navalha Nobre",
       kind: "site",
       category: "Barbearia e estética",
       city: "Blumenau, SC",
       tagline: "Sua imagem, cuidada em cada detalhe.",
       summary:
-        "Duas marcas em um só site: barbearia para eles e estética para elas, com tabela de preços e agendamento online.",
+        "Barbearia e estética no mesmo site, com serviços bem explicados e agendamento online pelo celular.",
       highlights: [
-        "Caminhos separados para barbearia e estética",
-        "Tabela de serviços e preços sempre atualizada",
-        "Agendamento online a partir do celular",
         "Visual escuro e elegante, com tipografia serifada",
+        "Serviços de barbearia e estética lado a lado",
+        "Agendamento online a partir do celular",
+        "Avaliações de clientes logo no início",
       ],
       url: "",
       tint: "#c9a45c",
       device: "both",
     },
     {
-      slug: "lucao",
-      name: "Lucão Pet Shop",
+      slug: "cafe-enxaimel",
+      name: "Café Enxaimel",
       kind: "site",
-      category: "Pet shop",
+      category: "Cafeteria e confeitaria",
       city: "Blumenau, SC",
-      tagline: "A gente cuida como se fosse nosso.",
+      tagline: "Café especial e cuca quentinha.",
       summary:
-        "Site para pet shop com banho e tosa, hotel, creche, loja e leva e traz na Itoupava Seca.",
+        "Site para cafeteria com cardápio, café colonial com reserva de mesa e pedidos para retirar pelo WhatsApp.",
       highlights: [
-        "Serviços para cães e gatos em cards com foto",
-        "Leva e traz explicado passo a passo",
-        "Horários e status de funcionamento automáticos",
-        "Botões de WhatsApp, rota e ligação sempre à mão",
+        "Cardápio organizado por cafés, doces e salgados",
+        "Reserva de mesa para o café colonial",
+        "Pedido para retirar direto no WhatsApp",
+        "Tons quentes e tipografia clássica, com cara de casa",
       ],
       url: "",
-      tint: "#f06a1d",
+      tint: "#c7682e",
       device: "both",
     },
     {
@@ -246,6 +246,7 @@ window.SITE_CONFIG = {
     { icon: "speed", name: "Carrega rápido", text: "Nota acima de 90 no teste de velocidade do Google." },
     { icon: "lock", name: "Seguro", text: "Cadeado de segurança (HTTPS) sem custo extra." },
     { icon: "globe", name: "Seu domínio", text: "seunegocio.com.br configurado e no seu nome." },
+    { icon: "care", name: "Suporte para sempre", text: "Com a mensalidade, ajustes e dúvidas continuam por minha conta, sem prazo para acabar." },
   ],
 
   /* --------------------------------------------------------------------
@@ -253,9 +254,9 @@ window.SITE_CONFIG = {
      "{projetos}" vira a quantidade de itens do portfólio.
      -------------------------------------------------------------------- */
   stats: [
-    { value: "{projetos}", suffix: "", label: "sites de negócios locais no portfólio." },
+    { value: "{projetos}", suffix: "", label: "modelos de sites no portfólio, cada um para um tipo de negócio." },
     { value: 2, suffix: " dias", label: "no máximo para a sua landing page ficar pronta." },
-    { value: 30, suffix: " dias", label: "de suporte grátis depois da publicação." },
+    { value: "∞", suffix: "", label: "de suporte: com a mensalidade, eu cuido do seu site para sempre." },
     { value: 24, suffix: "h", label: "no máximo para responder você, em dias úteis." },
   ],
 
@@ -293,9 +294,9 @@ window.SITE_CONFIG = {
     },
     {
       icon: "support",
-      title: "Suporte depois da entrega.",
+      title: "Suporte para sempre.",
       detail:
-        "Nos 30 dias após a publicação, dúvidas e pequenos ajustes são por minha conta. Depois, se quiser, combinamos uma manutenção mensal.",
+        "Com a mensalidade, o suporte não acaba: ajustes, troca de textos e fotos, atualizações e dúvidas pelo WhatsApp continuam por minha conta enquanto o seu site existir. Você nunca fica sozinho com ele.",
     },
     {
       icon: "pin",
@@ -307,15 +308,15 @@ window.SITE_CONFIG = {
 
   /* Passo a passo (página Serviços). */
   steps: [
-    { tag: "Hoje", title: "Conversa", text: "Você me conta sobre o seu negócio pelo WhatsApp e eu te passo o orçamento." },
+    { tag: "Hoje", title: "Conversa", text: "Você me conta sobre o seu negócio pelo WhatsApp e eu te passo o orçamento sem compromisso." },
     { tag: "Dia 1", title: "Primeira versão", text: "Monto a landing page com os seus textos, fotos e contatos, e te mando o link." },
     { tag: "Dia 2", title: "Ajustes", text: "Você revisa no celular, pede mudanças e eu ajusto até ficar do jeito que imaginou." },
-    { tag: "No ar", title: "Publicação e suporte", text: "Coloco o site no ar com o seu domínio e continuo por perto por 30 dias." },
+    { tag: "No ar", title: "Publicação e suporte", text: "Coloco o site no ar com o seu domínio e, com a mensalidade, continuo cuidando dele para sempre." },
   ],
 
   faq: [
     {
-      q: "Quanto custa?",
+      q: "Como funciona o orçamento?",
       a: "Cada negócio tem uma necessidade, então cada site tem o seu preço. Me chama no WhatsApp, conta o que você precisa e em poucos minutos eu te passo um orçamento fechado, sem compromisso.",
     },
     {
@@ -332,11 +333,15 @@ window.SITE_CONFIG = {
     },
     {
       q: "Como funcionam o domínio e a hospedagem?",
-      a: "O domínio (por exemplo, seunegocio.com.br) fica no seu nome e custa cerca de R$ 40 por ano no Registro.br. A hospedagem eu configuro em um serviço rápido e confiável, que na maioria dos casos não tem custo mensal.",
+      a: "O domínio (por exemplo, seunegocio.com.br) fica no seu nome e é renovado uma vez por ano direto no Registro.br. A hospedagem eu configuro em um serviço rápido e confiável, que na maioria dos casos não tem custo mensal.",
     },
     {
       q: "E depois que o site estiver no ar?",
-      a: "Você tem 30 dias de suporte grátis para dúvidas e pequenos ajustes. Depois, é só me chamar quando precisar mudar alguma coisa.",
+      a: "O suporte continua para sempre, com uma mensalidade: ajustes, troca de textos, fotos e horários, atualizações e dúvidas pelo WhatsApp. Você só me chama quando precisar, sem pagar nada a mais por cada mudança.",
+    },
+    {
+      q: "Tem mensalidade?",
+      a: "Tem, e é ela que garante que o seu site nunca fica abandonado. Com a mensalidade, eu cuido do site para sempre: mantenho no ar, faço os ajustes que você pedir e resolvo qualquer problema. O valor já vem no orçamento, sem surpresa.",
     },
     {
       q: "Vocês fazem loja virtual ou sistema?",

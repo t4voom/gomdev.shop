@@ -102,9 +102,9 @@
     items.forEach((el) => io.observe(el));
   }
 
-  /* ---------- iPhone rolando a página inteira só quando visível ---------- */
+  /* ---------- Notebook e iPhone rolando a página inteira só quando visíveis ---------- */
   function initScrollingPhones() {
-    const phones = $$(".phone--scroll");
+    const phones = $$(".phone--scroll, .laptop--scroll");
     if (!phones.length || !hasIO || reduceMotion) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => e.target.classList.toggle("is-playing", e.isIntersecting));
@@ -239,6 +239,23 @@
     });
   }
 
+  /* ---------- Botão flutuante do WhatsApp ---------- */
+  function initFab() {
+    const fab = $(".wa-fab");
+    if (!fab) return;
+    const footer = $(".footer");
+    let footerVisible = false;
+    const update = () => fab.classList.toggle("is-shown", window.scrollY > 520 && !footerVisible);
+    if (hasIO && footer) {
+      new IntersectionObserver(([entry]) => {
+        footerVisible = entry.isIntersecting;
+        update();
+      }).observe(footer);
+    }
+    window.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+    update();
+  }
+
   bindLinks();
   initGlobalNav();
   initLocalNav();
@@ -250,4 +267,5 @@
   initFaq();
   initFooter();
   initContactForm();
+  initFab();
 })();

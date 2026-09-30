@@ -5,15 +5,21 @@
 
    Uso:  node tools/build.mjs
    ========================================================================== */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-import vm from "node:vm";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
+import vm from "vm";
+import { createHash } from "crypto";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://gomdev.shop";
 const TODAY = new Date().toISOString().slice(0, 10);
 const YEAR = new Date().getFullYear();
+
+/* Versão de cada arquivo (muda quando o conteúdo muda), para o navegador
+   nunca usar um CSS ou JS antigo guardado em cache. */
+const version = (file) => createHash("md5").update(readFileSync(path.join(root, file))).digest("hex").slice(0, 8);
+const V = { css: version("css/style.css"), config: version("js/config.js"), main: version("js/main.js") };
 
 /* ---------- Config ---------- */
 const sandbox = { window: {} };
@@ -24,10 +30,10 @@ const SITES = PROJECTS.filter((p) => p.kind === "site");
 const APPS = PROJECTS.filter((p) => p.kind === "app");
 
 /* Projetos com a parte de cima escura (define a cor da barra de status do iPhone) */
-const DARK_TOP = new Set(["jc-auto-mecanica", "barbearia-fk", "forja", "forja-trainer", "juliano-entregas", "meu-treino"]);
+const DARK_TOP = new Set(["motor-certo", "navalha-nobre", "forja", "forja-trainer", "juliano-entregas", "meu-treino"]);
 
 /* ---------- Utilitários ---------- */
-const nbsp = (t) => String(t ?? "").replace(/R\$\s+(?=\d)/g, "R$ ");
+const nbsp = (t) => String(t == null ? "" : t).replace(/R\$\s+(?=\d)/g, "R$ ");
 const esc = (t) =>
   nbsp(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const money = (v) =>
@@ -45,8 +51,8 @@ function webpSize(file) {
   const k = d.indexOf("VP8 ");
   return { w: d.readUInt16LE(k + 14) & 0x3fff, h: d.readUInt16LE(k + 16) & 0x3fff };
 }
-const pageShot = (p) => {
-  const file = path.join(root, `assets/portfolio/${p.slug}-page.webp`);
+const pageShot = (p, kind = "page") => {
+  const file = path.join(root, `assets/portfolio/${p.slug}-${kind}.webp`);
   return existsSync(file) ? webpSize(file) : null;
 };
 
@@ -60,7 +66,7 @@ const wa = (kind = "default", vars = {}) => {
 
 /* ---------- Ícones ---------- */
 const SPRITE = `<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs>
-<symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3.25a8.75 8.75 0 0 0-7.6 13.08L3.25 20.75l4.52-1.12A8.75 8.75 0 1 0 12 3.25Z"/><path d="M9.2 8.1c.25-.5.55-.5.8-.5h.55c.2 0 .45.05.6.45l.72 1.75c.08.2.04.45-.1.62l-.55.66a.4.4 0 0 0-.05.47 7 7 0 0 0 2.7 2.7c.16.1.36.07.48-.06l.66-.55a.6.6 0 0 1 .62-.1l1.75.72c.4.15.45.4.45.6v.55c0 .25 0 .55-.5.8-.6.3-1.5.55-2.45.3a7.9 7.9 0 0 1-5.4-5.4c-.25-.95 0-1.85.3-2.45Z"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.27-.2-.57-.34m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.37l-.36-.22-3.74.99 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></symbol>
 <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></symbol>
 <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></symbol>
 <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m5.5 9.5 6.5 6.5 6.5-6.5"/></symbol>
@@ -100,9 +106,22 @@ const NAV = [
 ];
 
 /* ---------- Aparelhos ---------- */
+
 const alt = (p, where) => `${where === "phone" ? "Site" : "Página"} ${p.kind === "app" ? "do aplicativo" : "de"} ${p.name} ${where === "phone" ? "no celular" : "no computador"}`;
 
-function laptop(p, { eager = false, sizes = "(min-width: 1068px) 880px, 82vw" } = {}) {
+function laptop(p, { eager = false, scroll = false, sizes = "(min-width: 1068px) 880px, 82vw" } = {}) {
+  /* Página inteira do computador rolando dentro da tela (animação leve em CSS) */
+  const shot = scroll ? pageShot(p, "desktop-page") : null;
+  if (shot) {
+    const view = (shot.w * 10) / 16;
+    const end = ((1 - view / shot.h) * 100).toFixed(2);
+    return `<div class="laptop laptop--scroll" style="--scroll-end:-${end}%">
+    <div class="laptop__lid"><div class="laptop__screen">
+      <img src="/assets/portfolio/${p.slug}-desktop-page.webp" width="${shot.w}" height="${shot.h}" alt="${esc(alt(p, "laptop"))}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+    </div></div>
+    <div class="laptop__base"></div>
+  </div>`;
+  }
   return `<div class="laptop">
     <div class="laptop__lid"><div class="laptop__screen">
       <img src="/assets/portfolio/${p.slug}-desktop-800.webp" srcset="/assets/portfolio/${p.slug}-desktop-800.webp 800w, /assets/portfolio/${p.slug}-desktop.webp 1600w" sizes="${sizes}" width="1600" height="1000" alt="${esc(alt(p, "laptop"))}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
@@ -132,11 +151,11 @@ function phone(p, { eager = false, scroll = false, cls = "" } = {}) {
 }
 
 /* Laptop + celular sobrepostos, ou só celulares para apps */
-function devices(p, { eager = false, sizes } = {}) {
+function devices(p, { eager = false, sizes, scroll = false } = {}) {
   if (p.device === "phone") {
-    return `<div class="devices devices--phones">${phone(p, { eager, cls: "devices__phone" })}</div>`;
+    return `<div class="devices devices--phones">${phone(p, { eager, scroll, cls: "devices__phone" })}</div>`;
   }
-  return `<div class="devices">${laptop(p, { eager, sizes })}${phone(p, { eager, cls: "devices__phone" })}</div>`;
+  return `<div class="devices">${laptop(p, { eager, scroll, sizes })}${phone(p, { eager, scroll, cls: "devices__phone" })}</div>`;
 }
 
 /* ---------- Pedaços comuns ---------- */
@@ -166,10 +185,10 @@ function head({ title, description, url, image = "/assets/og-image.jpg", jsonld 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=${V.css}">
   <script>document.documentElement.classList.add("js");</script>
-  <script src="/js/config.js" defer></script>
-  <script src="/js/main.js" defer></script>${jsonld ? `\n  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ""}
+  <script src="/js/config.js?v=${V.config}" defer></script>
+  <script src="/js/main.js?v=${V.main}" defer></script>${jsonld ? `\n  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ""}
 </head>`;
 }
 
@@ -198,7 +217,7 @@ function globalNav(current) {
 
 function ribbon() {
   if (!C.ribbon) return "";
-  return `<div class="ribbon"><p class="ribbon__text">${esc(C.ribbon)} <a class="link" ${wa()}>Fale comigo</a></p></div>`;
+  return `<div class="ribbon"><p class="ribbon__text">${icon("clock", "icon ribbon__icon")}${esc(C.ribbon)} <a class="link" ${wa()}>Fale comigo</a></p></div>`;
 }
 
 /* Sub-barra fixa das páginas internas (título + atalhos + botão) */
@@ -222,8 +241,8 @@ function footer(crumb) {
   return `<footer class="footer">
     <div class="container">
       <div class="footer__notes">
-        <p>Cada projeto tem o seu preço: o orçamento sai depois de uma conversa rápida pelo WhatsApp, sem compromisso.</p>
-        <p>Os projetos do portfólio pertencem aos respectivos clientes e aparecem aqui como exemplos do meu trabalho.</p>
+        <p>Orçamento sob medida e sem compromisso pelo WhatsApp. Sua landing page fica pronta em até ${esc(C.delivery)}.</p>
+        <p>Para preservar a privacidade dos clientes, os projetos do portfólio aparecem com nomes, marcas e imagens fictícios.</p>
       </div>
       <nav class="footer__crumbs" aria-label="Você está aqui">
         <a href="/" aria-label="gomdev, página inicial">${LOGO("logo logo--sm")}</a>
@@ -250,11 +269,12 @@ function footer(crumb) {
 function relativize(html, file) {
   const prefix = "../".repeat(file.split("/").length - 1);
   const toFile = (p) => {
-    const [pathPart, hash = ""] = p.split("#");
+    const [beforeHash, hash = ""] = p.split("#");
+    const [pathPart, query = ""] = beforeHash.split("?");
     let target = pathPart;
     if (target === "") target = "index.html";
     else if (!/\.[a-z0-9]+$/i.test(target)) target += ".html";
-    return prefix + target + (hash ? `#${hash}` : "");
+    return prefix + target + (query ? `?${query}` : "") + (hash ? `#${hash}` : "");
   };
   return html
     .replace(/(href|src)="\/(?!\/)([^"]*)"/g, (m, attr, p) => `${attr}="${toFile(p)}"`)
@@ -273,6 +293,7 @@ function page({ file, url, title, description, current, crumb, localnav = "", ri
   <main id="conteudo" tabindex="-1">
 ${body}
   </main>
+  <a class="wa-fab" ${wa()} aria-label="Conversar no WhatsApp">${icon("whatsapp")}<span class="wa-fab__label">Orçamento</span></a>
   ${footer(crumb)}
 </body>
 </html>
@@ -349,7 +370,7 @@ function chapterNav(active = "") {
   </nav>`;
 }
 
-function ctaBand(title = 'Vamos tirar seu negócio do <span class="text-gradient">papel digital?</span>', lead = "Me chama no WhatsApp. Em poucos minutos você já sabe quanto custa e quando fica pronto.") {
+function ctaBand(title = 'Vamos tirar seu negócio do <span class="text-gradient">papel digital?</span>', lead = `Me chama no WhatsApp. Você recebe o orçamento sem compromisso e o seu site fica pronto em até ${esc(C.delivery)}.`) {
   return `<section class="section cta" data-theme="dark" aria-labelledby="cta-title">
     <div class="glow" aria-hidden="true"></div>
     <div class="container cta__inner reveal">
@@ -359,6 +380,28 @@ function ctaBand(title = 'Vamos tirar seu negócio do <span class="text-gradient
       <p class="cta__note">${esc(C.whatsapp.responseTime)}</p>
     </div>
   </section>`;
+}
+
+/* Faixa escura do prazo: "Seu site no ar em até 2 dias" + passo a passo */
+function fastBand() {
+  return `<section class="fast" data-theme="dark" aria-labelledby="fast-title">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="container fast__inner">
+        <div class="fast__head reveal">
+          <p class="fast__eyebrow">${icon("clock")}Prazo de entrega</p>
+          <h2 class="fast__title" id="fast-title">Seu site no ar em até <span class="text-gradient">${esc(C.delivery)}.</span></h2>
+          <p class="fast__lead">Nada de esperar semanas. Você me passa as informações hoje e em até ${esc(C.delivery)} o seu negócio já tem um site bonito, rápido e pronto para receber clientes.</p>
+          <div class="btn-row"><a class="btn btn--primary" ${wa()}>${icon("whatsapp")}Começar agora</a><a class="btn btn--ghost" href="/servicos#como-funciona">Como funciona</a></div>
+        </div>
+        <ol class="fast__steps">
+          ${C.steps.map((s, i) => `<li class="fast__step reveal" style="--i:${i}">
+            <span class="fast__tag">${esc(s.tag)}</span>
+            <h3 class="fast__step-title">${esc(s.title)}</h3>
+            <p class="fast__step-text">${esc(s.text)}</p>
+          </li>`).join("")}
+        </ol>
+      </div>
+    </section>`;
 }
 
 const intro = (h1, muted, lead = "") => `<header class="intro container reveal">
@@ -403,6 +446,11 @@ urls.push(page({
         <h1 class="tile__title tile__title--xl hero-in" id="hero-title" style="--d:1">Seu negócio merece um site <span class="text-gradient">à&nbsp;altura.</span></h1>
         <p class="tile__sub hero-in" style="--d:2">Feito à mão, rápido no celular e pronto em até ${esc(C.delivery)} para trazer clientes pelo WhatsApp.</p>
         <div class="btn-row hero-in" style="--d:3"><a class="btn btn--primary" href="/portfolio">Ver portfólio</a><a class="btn btn--outline" ${wa()}>Fale comigo</a></div>
+        <ul class="perks hero-in" style="--d:3" aria-label="Vantagens">
+          <li class="perks__item">${icon("clock")}Pronto em até ${esc(C.delivery)}</li>
+          <li class="perks__item">${icon("phone")}Perfeito no celular</li>
+          <li class="perks__item">${icon("whatsapp")}Clientes no WhatsApp</li>
+        </ul>
       </div>
       <figure class="tile__media hero-in" style="--d:4">
         ${devices(hero, { eager: true })}
@@ -434,7 +482,9 @@ urls.push(page({
       </article>`).join("")}
     </section>
 
-    ${shelf("portfolio", 'Todo o portfólio. <span class="headline__muted">Sites de verdade, no ar.</span>', PROJECTS.map((p) => projectCard(p)))}
+    ${fastBand()}
+
+    ${shelf("portfolio", 'Todo o portfólio. <span class="headline__muted">Um site para cada tipo de negócio.</span>', PROJECTS.map((p) => projectCard(p)))}
 
     <section class="section section--gray" aria-labelledby="servicos-title">
       <div class="container">
@@ -454,10 +504,10 @@ urls.push(page({
   current: "/portfolio",
   crumb: "Portfólio",
   title: "Portfólio | gomdev",
-  description: `Veja ${SITES.length} sites da gomdev para negócios de Blumenau e Gaspar: pet shops, oficina mecânica, barbearia e floricultura.`,
+  description: `Veja ${SITES.length} modelos de sites da gomdev para negócios locais: hotel para pets, oficina mecânica, floricultura, barbearia e cafeteria.`,
   localnav: localNav("Portfólio"),
   body: `
-    ${intro("Portfólio.", "Sites de verdade, para negócios de verdade.", `${SITES.length} sites para negócios de ${[...new Set(SITES.map((p) => p.city.split(",")[0]))].join(" e ")}. Toque em um projeto para ver os detalhes.`)}
+    ${intro("Portfólio.", "Um site sob medida para cada tipo de negócio.", `${SITES.length} landing pages feitas do zero, cada uma com a cara do negócio. Toque em um projeto para ver os detalhes. Nomes e marcas são fictícios, para preservar os clientes.`)}
     <section class="section section--tight" id="sites" aria-label="Sites">
       <div class="container">
         <div class="pgrid">${SITES.map((p) => projectCard(p)).join("")}</div>
@@ -513,7 +563,7 @@ PROJECTS.forEach((p, idx) => {
         <p class="phero__tagline hero-in" style="--d:2">${esc(p.tagline)}</p>
         <div class="btn-row hero-in" style="--d:3">${p.url ? `<a class="btn btn--primary" href="${esc(p.url)}" target="_blank" rel="noopener">Visitar ${p.kind === "app" ? "app" : "site"}${icon("arrow-up-right")}</a>` : ""}<a class="btn ${p.url ? "btn--outline" : "btn--primary"}" ${wa("project", { projeto: p.name })}>${icon("whatsapp")}Quero um assim</a></div>
       </div>
-      <div class="phero__media hero-in" style="--d:4">${devices(p, { eager: true })}</div>
+      <div class="phero__media hero-in" style="--d:4">${devices(p, { eager: true, scroll: true })}</div>
     </section>
 
     <section class="section section--gray" id="destaques" aria-labelledby="d-title" style="--tint:${p.tint}">
@@ -586,8 +636,8 @@ urls.push(page({
     <section class="section quote" id="orcamento" aria-labelledby="q-title">
       <div class="container quote__inner reveal">
         <span class="quote__icon">${icon("chat")}</span>
-        <h2 class="quote__title" id="q-title">Quanto custa? <span class="headline__muted">Depende do seu negócio.</span></h2>
-        <p class="quote__lead">Cada projeto tem o seu preço. Me conta o que você precisa pelo WhatsApp e em poucos minutos você recebe um orçamento fechado, sem compromisso.</p>
+        <h2 class="quote__title" id="q-title">Orçamento sob medida. <span class="headline__muted">Feito para o seu negócio.</span></h2>
+        <p class="quote__lead">Me conta o que você precisa pelo WhatsApp e em poucos minutos você recebe um orçamento fechado, sem compromisso. Aprovou? Em até ${esc(C.delivery)} o site está pronto.</p>
         <div class="btn-row"><a class="btn btn--primary btn--lg" ${wa("quote")}>${icon("whatsapp")}Pedir orçamento</a><a class="btn btn--outline btn--lg" href="/contato">Preencher formulário</a></div>
       </div>
     </section>
@@ -611,7 +661,7 @@ if (existsSync(path.join(root, "planos.html"))) unlinkSync(path.join(root, "plan
 
 /* ---------- Sobre ---------- */
 const cities = [...new Set(SITES.map((p) => p.city.split(",")[0]))];
-const statValue = (v) => (v === "{projetos}" ? PROJECTS.length : Number(v));
+const statValue = (v) => (v === "{projetos}" ? PROJECTS.length : Number.isNaN(Number(v)) ? v : Number(v));
 urls.push(page({
   file: "sobre.html",
   url: "/sobre",
@@ -628,7 +678,7 @@ urls.push(page({
         <h1 class="about__title hero-in" id="about-title" style="--d:2">Oi, eu sou o ${esc(C.ownerName)}.</h1>
         <p class="about__lead hero-in" style="--d:3">Crio sites em ${esc(C.city)}. A gomdev é isso: uma pessoa que desenha, programa e publica cada projeto do começo ao fim.</p>
         <div class="about__story reveal">
-          <p>Comecei fazendo ferramentas para resolver problemas meus, como um app para acompanhar treinos. Logo vieram os negócios daqui: um hotel para pets, uma oficina, uma barbearia, uma floricultura.</p>
+          <p>Comecei fazendo ferramentas para resolver problemas meus, como um app para acompanhar treinos. Logo vieram os negócios daqui: hotel para pets, oficina, barbearia, floricultura, cafeteria.</p>
           <p>Em todos eles, a pergunta era a mesma: como fazer o cliente encontrar e chamar no WhatsApp sem complicação? Cada site do portfólio é a minha resposta para essa pergunta, feita sob medida, sem modelo pronto.</p>
           <p>Hoje atendo ${cities.join(" e ")} e região, sempre direto comigo, do primeiro oi até depois do site no ar.</p>
         </div>
@@ -639,7 +689,7 @@ urls.push(page({
       <div class="container">
         <h2 class="headline reveal" id="n-title">Em números. <span class="headline__muted">Só o que dá para cumprir.</span></h2>
         <ul class="stats">
-          ${C.stats.map((s) => { const v = statValue(s.value); return `<li class="stat reveal"><span class="stat__value" aria-hidden="true"><span class="stat__number" data-count="${v}" style="min-width:${String(v).length}ch">${v}</span><span class="stat__suffix">${esc(s.suffix)}</span></span><span class="visually-hidden">${v}${esc(s.suffix)}</span><span class="stat__label">${esc(s.label)}</span></li>`; }).join("")}
+          ${C.stats.map((s) => { const v = statValue(s.value); return `<li class="stat reveal"><span class="stat__value" aria-hidden="true"><span class="stat__number"${typeof v === "number" ? ` data-count="${v}"` : ""} style="min-width:${String(v).length}ch">${v}</span><span class="stat__suffix">${esc(s.suffix)}</span></span><span class="visually-hidden">${v}${esc(s.suffix)}</span><span class="stat__label">${esc(s.label)}</span></li>`; }).join("")}
         </ul>
       </div>
     </section>
@@ -717,7 +767,7 @@ urls.push(page({
           </div>
           <a class="ccard reveal" href="/servicos#duvidas">
             <span class="ccard__icon">${icon("chat")}</span>
-            <span class="ccard__body"><span class="ccard__title">Perguntas frequentes</span><span class="ccard__text">Preço, prazo, domínio e mais.</span></span>
+            <span class="ccard__body"><span class="ccard__title">Perguntas frequentes</span><span class="ccard__text">Orçamento, prazo, domínio e mais.</span></span>
             ${icon("chevron-right", "icon ccard__chev")}
           </a>
         </aside>

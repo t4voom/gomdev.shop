@@ -1729,8 +1729,14 @@ html:has(.lnav) .gnav {
   margin-inline: auto;
 }
 
-.phone--scroll .phone__viewport img {
+.phone--scroll .phone__viewport img,
+.laptop--scroll .laptop__screen img {
   will-change: transform;
+}
+
+.laptop--scroll .laptop__screen img {
+  height: auto;
+  object-fit: fill;
 }
 
 @media (min-width: 834px) {
@@ -1833,6 +1839,10 @@ html:has(.lnav) .gnav {
   .features {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .features .feature:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1842,7 +1852,11 @@ html:has(.lnav) .gnav {
   }
 
   .features {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .features .feature:last-child:nth-child(odd) {
+    grid-column: auto;
   }
 }
 
@@ -2615,11 +2629,13 @@ a.ccard:hover {
   }
 
   /* Página inteira rolando dentro do iPhone */
-  .js .phone--scroll.is-playing .phone__viewport img {
-    animation: page-scroll var(--scroll-dur, 16s) ease-in-out 1s infinite alternate;
+  .js .phone--scroll.is-playing .phone__viewport img,
+  .js .laptop--scroll.is-playing .laptop__screen img {
+    animation: page-tour 18s cubic-bezier(.65, 0, .35, 1) .6s infinite;
   }
 
-  .phone--scroll:hover .phone__viewport img {
+  .phone--scroll:hover .phone__viewport img,
+  .laptop--scroll:hover .laptop__screen img {
     animation-play-state: paused;
   }
 
@@ -2696,13 +2712,30 @@ a.ccard:hover {
   }
 }
 
-@keyframes page-scroll {
-  0%, 8% {
+/* Passeio pela página: desce parando em cada parte e volta ao topo */
+@keyframes page-tour {
+  0%, 9% {
     transform: translateY(0);
   }
 
-  92%, 100% {
+  17%, 26% {
+    transform: translateY(calc(var(--scroll-end) * .25));
+  }
+
+  34%, 43% {
+    transform: translateY(calc(var(--scroll-end) * .5));
+  }
+
+  51%, 60% {
+    transform: translateY(calc(var(--scroll-end) * .75));
+  }
+
+  68%, 84% {
     transform: translateY(var(--scroll-end));
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -2718,3 +2751,336 @@ a.ccard:hover {
     opacity: 0;
   }
 }
+
+/* ==========================================================================
+   Acabamento: selos do topo, faixa do prazo, botão flutuante e ajustes
+   para celular
+   ========================================================================== */
+
+/* Faixa de aviso com ícone */
+.ribbon__icon {
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: .4em;
+  vertical-align: -.2em;
+  color: var(--accent);
+}
+
+/* Selos logo abaixo dos botões do topo */
+.perks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .625rem;
+  margin-top: 1.5rem;
+}
+
+.perks__item {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem .95rem;
+  border-radius: 980px;
+  background: var(--gray-50);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.perks__item .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--accent);
+  stroke-width: 1.8;
+}
+
+/* Faixa "Seu site no ar em até 2 dias" */
+.fast {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--section);
+  background: var(--black);
+  color: var(--fg);
+  isolation: isolate;
+}
+
+.fast .glow {
+  top: -55%;
+  bottom: auto;
+  opacity: .8;
+}
+
+.fast__inner {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.fast__head {
+  text-align: center;
+}
+
+.fast__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .4rem .9rem;
+  border-radius: 980px;
+  background: rgba(255, 255, 255, .08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+
+.fast__eyebrow .icon {
+  width: 1rem;
+  height: 1rem;
+  color: #6cb8ff;
+}
+
+.fast__title {
+  max-width: 14ch;
+  margin: 1.25rem auto 0;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.fast__lead {
+  max-width: 34rem;
+  margin: 1.25rem auto 0;
+  font-size: clamp(1.0625rem, 1rem + .35vw, 1.3125rem);
+  line-height: 1.45;
+  color: var(--muted-on-dark);
+  text-wrap: pretty;
+}
+
+.fast__steps {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  counter-reset: step;
+}
+
+.fast__step {
+  position: relative;
+  padding: 1.375rem 1.5rem 1.5rem 4.25rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  counter-increment: step;
+}
+
+.fast__step::before {
+  content: counter(step);
+  position: absolute;
+  top: 1.375rem;
+  left: 1.25rem;
+  display: grid;
+  width: 2.125rem;
+  height: 2.125rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gradient-soft);
+  font-size: .9375rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.fast__tag {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6cb8ff;
+}
+
+.fast__step-title {
+  margin-top: .2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+.fast__step-text {
+  margin-top: .35rem;
+  font-size: .9375rem;
+  line-height: 1.45;
+  color: var(--muted-on-dark);
+}
+
+@media (min-width: 834px) {
+  .fast__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1068px) {
+  .fast__inner {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  }
+
+  .fast__head {
+    text-align: left;
+  }
+
+  .fast__title,
+  .fast__lead {
+    margin-inline: 0;
+  }
+
+  .fast__head .btn-row {
+    justify-content: flex-start;
+  }
+}
+
+/* Botão flutuante do WhatsApp (aparece depois de rolar um pouco) */
+.wa-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 180;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  height: 56px;
+  padding: 0 1.25rem 0 1.05rem;
+  border-radius: 980px;
+  background: #1faa53;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 12px 30px -10px rgba(31, 170, 83, .7), 0 4px 12px rgba(0, 0, 0, .12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(.96);
+  transition: opacity .35s var(--ease), transform .35s var(--ease), visibility 0s linear .35s, background-color .3s var(--ease);
+}
+
+.wa-fab .icon {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.7;
+}
+
+.wa-fab:hover {
+  background: #17964a;
+}
+
+.wa-fab.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .35s var(--ease), transform .35s var(--ease), background-color .3s var(--ease);
+}
+
+.no-js .wa-fab,
+html:not(.js) .wa-fab {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.is-locked .wa-fab {
+  display: none;
+}
+
+@media (max-width: 479.98px) {
+  .wa-fab {
+    width: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .wa-fab__label {
+    display: none;
+  }
+}
+
+/* Cards de projeto: cor de cada projeto e leve elevação */
+.pcard__kind {
+  color: color-mix(in srgb, var(--tint, #b64400) 78%, #000);
+}
+
+.pcard__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  background: var(--tint);
+  opacity: .9;
+}
+
+@media (hover: hover) {
+  .pcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 44px -22px rgba(0, 0, 0, .35);
+  }
+
+  .pcard:hover .pcard__media img {
+    transform: scale(1.03);
+  }
+}
+
+/* Celular: botões grandes e fáceis de tocar, blocos com respiro */
+@media (max-width: 479.98px) {
+  .tile--hero .btn-row,
+  .fast__head .btn-row,
+  .cta .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  .tile--hero .btn-row .btn,
+  .fast__head .btn-row .btn,
+  .cta .btn-row .btn {
+    width: 100%;
+  }
+
+  .perks {
+    gap: .4rem;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  .perks__item {
+    gap: .35rem;
+    padding: .4rem .7rem;
+    font-size: .75rem;
+  }
+
+  .perks__item .icon {
+    width: .95rem;
+    height: .95rem;
+  }
+
+  .ribbon {
+    font-size: .8125rem;
+  }
+
+  .promo {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .promo__tile {
+    border-radius: 22px;
+  }
+
+  .fast__step {
+    padding: 1.25rem 1.25rem 1.375rem 4rem;
+  }
+
+  .fast__step::before {
+    left: 1.05rem;
+  }
+}
+

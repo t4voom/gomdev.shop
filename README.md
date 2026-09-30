@@ -11,6 +11,8 @@ js/config.js              ← TUDO o que você vai querer mudar
 js/main.js                menu, animações, vitrine, filtro, janelas, formulário
 tools/build.mjs           gera as páginas .html e o sitemap a partir do config.js
 tools/generate-images.mjs gera a imagem de compartilhamento e os ícones (opcional)
+tools/demo.html           sites de demonstração do portfólio (negócios fictícios)
+tools/portfolio-shots.js  tira as capturas do portfólio a partir do demo.html
 assets/portfolio/         capturas dos projetos em WebP (computador, celular, página inteira)
 ```
 
@@ -42,6 +44,18 @@ Para gerar as páginas de novo (só precisa do Node 18+ instalado):
 ```bash
 node tools/build.mjs
 ```
+
+### Capturas do portfólio (negócios fictícios)
+
+Os 5 projetos do portfólio (Patas & Cia, Motor Certo, Flor de Ipê, Navalha Nobre e Café Enxaimel) são sites de demonstração desenhados em `tools/demo.html`. As fotos vêm do Unsplash (licença gratuita, com uso comercial permitido e sem precisar dar crédito) e são carregadas da internet na hora de gerar as capturas. Para mudar um texto ou cor e gerar as imagens de novo (precisa só do Google Chrome instalado):
+
+```bash
+node tools/portfolio-shots.js
+```
+
+Nas páginas de cada projeto, o notebook e o iPhone mostram a página inteira rolando sozinha (`<slug>-desktop-page.webp` e `<slug>-page.webp`). A animação é feita em CSS: fica lisa, pesa pouco, só roda quando aparece na tela e pausa ao passar o mouse.
+
+Depois rode `node tools/build.mjs`. Com Node antigo (anterior ao 14), use `node --experimental-modules tools/build.mjs`.
 
 ### Adicionar um projeto novo ao portfólio
 
@@ -91,11 +105,10 @@ Também funciona no GitHub Pages e na Netlify: é só apontar para a raiz do rep
 
 ## Antes de publicar, revise
 
-- [ ] Os links publicados de cada projeto em `portfolio[].url` (só o Garden Blue tem link hoje)
 - [ ] O texto da página Sobre, no `tools/build.mjs` (escrevi uma história curta; ajuste para a sua)
 - [ ] O site não mostra preços: o orçamento é sempre pelo WhatsApp
 - [ ] Link e @ do Instagram (`instagram`)
-- [ ] Se os clientes do portfólio concordam em aparecer no site
+- [ ] O portfólio usa negócios fictícios (nomes, marcas, telefones e avaliações inventados). Para mostrar um cliente de verdade, peça autorização antes
 
 ## Notas técnicas
 
