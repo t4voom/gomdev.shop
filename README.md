@@ -1,51 +1,56 @@
 # gomdev.shop
 
-Site de uma página da gomdev: criação de sites para negócios locais em Blumenau, SC.
-Feito com HTML, CSS e JavaScript puros: sem framework, sem build e sem dependências.
+Site da gomdev: criação de sites e aplicativos para negócios locais em Blumenau, SC.
+HTML, CSS e JavaScript puros, sem framework e sem dependências. Visual inspirado na apple.com.
 
 ```
-index.html           página principal
-404.html             página de erro
-css/style.css        estilos (cores, fontes e espaçamentos ficam no topo, em :root)
-js/config.js         ← TUDO o que você vai querer mudar (WhatsApp, preços, textos)
-js/main.js           monta planos, números, garantias e dúvidas a partir do config
-assets/              logo, ícones, imagem de compartilhamento, fonte e mockups (SVG)
-tools/               modelos para gerar de novo as imagens PNG/JPG (opcional)
-robots.txt, sitemap.xml, site.webmanifest, favicon.ico
-_headers, vercel.json  cabeçalhos de segurança e cache para a hospedagem
+index.html, portfolio.html, servicos.html, planos.html, sobre.html, contato.html, 404.html
+projetos/<projeto>.html   uma página para cada projeto do portfólio
+css/style.css             estilos (cores, fontes e espaçamentos no topo, em :root)
+js/config.js              ← TUDO o que você vai querer mudar
+js/main.js                menu, animações, vitrine, filtro, janelas, formulário
+tools/build.mjs           gera as páginas .html e o sitemap a partir do config.js
+tools/generate-images.mjs gera a imagem de compartilhamento e os ícones (opcional)
+assets/portfolio/         capturas dos projetos em WebP (computador, celular, página inteira)
 ```
+
+As páginas `.html` já estão prontas e são as que vão para o ar. Elas são **geradas** pelo `tools/build.mjs`, então não edite os `.html` direto: mude o `config.js` (ou o `build.mjs`) e gere de novo.
 
 ## Rodar no seu computador
 
-Qualquer servidor estático serve. Na pasta do projeto:
-
 ```bash
-python3 -m http.server 8080
-# ou
 npx serve .
 ```
 
-Abra http://localhost:8080. Dá para abrir o `index.html` direto no navegador, mas os ícones da aba só aparecem com um servidor.
+Abra http://localhost:3000. Use o `serve` (e não abrir o arquivo direto) porque os links usam endereços limpos, como `/portfolio`.
 
 ## Editar o conteúdo: `js/config.js`
 
-Abra o arquivo em qualquer editor de texto. Cada bloco tem um comentário explicando o que é.
+| O quê | Onde no `config.js` | Precisa gerar de novo? |
+| --- | --- | --- |
+| Número do WhatsApp | `WHATSAPP_NUMBER`, na primeira linha (55 + DDD + número) | Não, mas recomendo |
+| Instagram | `instagram` | Não, mas recomendo |
+| Faixa de aviso no topo | `ribbon` | Sim |
+| Projetos do portfólio | `portfolio` (inclui o link publicado de cada um em `url`) | Sim |
+| Serviços, passos, motivos | `services`, `steps`, `reasons` | Sim |
+| Planos, preços e tabela | `plans`, `compare`, `plansNote` | Sim |
+| Números da página Sobre | `stats` | Sim |
+| Perguntas frequentes | `faq` | Sim |
 
-| O quê | Onde no `config.js` |
-| --- | --- |
-| Número do WhatsApp | `WHATSAPP_NUMBER`, na primeira linha: 55 + DDD + número, só dígitos (ex.: `"5547987654321"`) |
-| Mensagens que chegam prontas no WhatsApp | `whatsapp.messages`. `{plano}`, `{preco}` e `{projeto}` são preenchidos sozinhos |
-| Instagram | `instagram.url` e `instagram.handle` |
-| Preços, nomes e itens dos planos | `plans` (preço em número, sem "R$" e sem ponto: `1890`) |
-| Selo "Mais escolhido" | `badge` do plano com `featured: true` |
-| Prazo em "O que você recebe" | `deliveryDays` |
-| Números animados de "Por que comigo" | `stats` |
-| Garantias | `guarantees` |
-| Perguntas frequentes | `faq` |
+Para gerar as páginas de novo (só precisa do Node 18+ instalado):
 
-Os outros textos (títulos, passos, exemplos de projeto) ficam direto no `index.html`.
+```bash
+node tools/build.mjs
+```
 
-Se mudar o título principal ou o logo, gere de novo a imagem de compartilhamento (`assets/og-image.jpg`) e os ícones (é preciso ter o Node instalado):
+### Adicionar um projeto novo ao portfólio
+
+1. Tire três capturas do site, em WebP, e salve em `assets/portfolio/`:
+   `<slug>-desktop.webp` (1600×1000), `<slug>-desktop-800.webp` (800×500), `<slug>-mobile.webp` (780×1688) e, se quiser o iPhone rolando a página inteira, `<slug>-page.webp` (390 de largura, altura até 9000).
+2. Adicione o projeto em `portfolio` no `config.js`.
+3. Rode `node tools/build.mjs`.
+
+Se mudar o título principal ou o logo, gere de novo a imagem de compartilhamento e os ícones:
 
 ```bash
 npm i -D playwright && npx playwright install chromium
@@ -60,7 +65,7 @@ O site é só um monte de arquivos estáticos: não tem comando de build e a pas
 
 1. Suba o projeto para um repositório no GitHub.
 2. No painel da Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** e escolha o repositório.
-3. Em *Build settings*: Framework preset **None**, Build command **vazio**, Build output directory **`/`**. Clique em **Save and Deploy**.
+3. Em *Build settings*: Framework preset **None**, Build command **vazio**, Build output directory **`/`**. Clique em **Save and Deploy**. A Cloudflare já entende os endereços limpos (`/portfolio` abre `portfolio.html`).
 4. Para usar o domínio: **Custom domains → Set up a custom domain → `gomdev.shop`**.
    - Se o domínio ainda não estiver na Cloudflare, ela pede para você trocar os *nameservers* no site onde comprou o `gomdev.shop` pelos dois que ela mostrar. A troca leva de minutos a algumas horas.
    - Adicione também `www.gomdev.shop` e crie um redirecionamento de `www` para o domínio principal (Rules → Redirect Rules), se quiser.
@@ -74,7 +79,7 @@ O arquivo `_headers` já configura segurança e cache na Cloudflare (e também n
 3. Em **Settings → Domains**, adicione `gomdev.shop` e `www.gomdev.shop`.
 4. No painel onde você comprou o domínio, crie os registros DNS que a Vercel mostrar (normalmente um registro `A` para `@` apontando para `76.76.21.21` e um `CNAME` para `www` apontando para `cname.vercel-dns.com`).
 
-O `vercel.json` já configura segurança e cache na Vercel.
+O `vercel.json` já configura endereços limpos, segurança e cache na Vercel.
 
 Também funciona no GitHub Pages e na Netlify: é só apontar para a raiz do repositório.
 
@@ -87,16 +92,14 @@ Também funciona no GitHub Pages e na Netlify: é só apontar para a raiz do rep
 ## Antes de publicar, revise
 
 - [ ] `WHATSAPP_NUMBER` em `js/config.js` (o número atual é fictício)
-- [ ] Preços, parcelamento e itens de cada plano (`plans` e `plansNote`)
+- [ ] Os links publicados de cada projeto em `portfolio[].url` (só o Garden Blue tem link hoje)
+- [ ] O texto da página Sobre, no `tools/build.mjs` (escrevi uma história curta; ajuste para a sua)
+- [ ] Preços, parcelamento e itens de cada plano (`plans`, `compare`, `plansNote`)
 - [ ] Link e @ do Instagram (`instagram`)
-- [ ] Prazos: `deliveryDays`, os "Pronto em até…" dos planos, o primeiro item de `stats` e a primeira pergunta de `faq`
-- [ ] Garantias e respostas das dúvidas: prometa só o que você cumpre
-- [ ] Data em `sitemap.xml` (`lastmod`) quando fizer mudanças grandes
+- [ ] Se os clientes do portfólio concordam em aparecer no site
 
 ## Notas técnicas
 
-- Fontes: usa a fonte do sistema da Apple (SF Pro) no iPhone e no Mac; nos outros aparelhos carrega a Inter, hospedada em `assets/fonts` (licença SIL OFL, em `assets/fonts/OFL.txt`).
-- Todas as imagens da página são SVG desenhados à mão, leves e nítidos em qualquer tela. Os únicos arquivos raster são os ícones e a imagem de compartilhamento, que precisam ser PNG/JPG.
-- Os projetos de exemplo (Aurora Pet, Lumen Odonto, Bruma Café, Nórdica Casa, Brasa Norte e Volta Elétrica) são fictícios e aparecem no site como "Exemplos de projeto".
-- Acessibilidade: navegação completa por teclado, link "Pular para o conteúdo", contraste AA e animações desligadas para quem ativa "reduzir movimento" no aparelho.
-- O cinza secundário `#86868b` só é usado em fundos escuros; em fundos claros ele fica abaixo do contraste mínimo, então lá usamos `#6e6e73`.
+- Fontes: SF Pro no iPhone e no Mac; nos outros aparelhos, Inter hospedada em `assets/fonts` (licença SIL OFL em `assets/fonts/OFL.txt`).
+- Imagens do portfólio em WebP com `srcset`, carregamento sob demanda e tamanhos fixos (sem pulos na tela).
+- Acessibilidade: navegação completa por teclado, "Pular para o conteúdo", contraste AA, janelas com `<dialog>` e animações desligadas para quem ativa "reduzir movimento".

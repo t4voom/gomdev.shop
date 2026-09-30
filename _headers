@@ -9,5 +9,5 @@
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/mockups/*
+/assets/portfolio/*
   Cache-Control: public, max-age=604800
